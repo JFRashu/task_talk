@@ -1,5 +1,5 @@
 import React from 'react'
-import '../Components/Homestyle.css'
+// import '../Components/Homestyle.css'
 export const Home = () => {
   return (
     <div>Home</div>
