@@ -1,25 +1,38 @@
+import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom';
+import React from 'react'
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
-import Layout from './Routes/Layout'
-import { Home } from './Routes/Home'
-import { Login } from './Routes/Login'
-import { Register } from './Routes/Register'
+ import moduleName from 'module'
+// import {Button} from 'react'
+// import './App.css'
 
+// import Component2 from './component2'
+import Home from './Component/Home/Home'
+ import Login from './Component/Rashu/Login/Login'
+import Registration from './Component/Rashu/Registration/Registration'
+// import Header from './Header'
+ 
 function App() {
+//  const [count, setCount] = useState(0)
+  
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          {/* Remove the path="/" since Layout should wrap all routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/signin" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="*" element={<Home />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+   
+    <>
+   
+    {/* <Header></Header>  */}
+    {/* <Home></Home>  */}
+    {/* <Login></Login>*/}
+     {/* <Registration></Registration>  */}
+     <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path='/registration' element={<Registration/>}/>
+      <Route path='*' element={<Home/>}/>
+    </Routes>
+      
+    </>
+    
   )
 }
+
 export default App
