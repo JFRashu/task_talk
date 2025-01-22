@@ -10,6 +10,7 @@ import React from 'react'
 import Home from './Component/Home/Home'
  import Login from './Component/Rashu/Login/Login'
 import Registration from './Component/Rashu/Registration/Registration'
+import Chatbox from './Component/Rashu/TaskChat/Chatbox';
 // import Header from './Header'
  
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path='/registration' element={<Registration/>}/>
+      <Route path='/taskchat' element={<Chatbox/>}/>
       <Route path='*' element={<Home/>}/>
     </Routes>
       
