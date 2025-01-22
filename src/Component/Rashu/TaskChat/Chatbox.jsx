@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { MessageSquare, CheckCircle, Clock, AlertTriangle, Paperclip, Image, Send, X } from 'lucide-react';
+import { MessageSquare, CheckCircle, Clock, AlertTriangle, Paperclip, Image, Send, X, ChevronDown, ChevronUp } from 'lucide-react';
 
 const Chatbox = () => {
     const [selectedChat, setSelectedChat] = useState(1);
     const [attachments, setAttachments] = useState([]);
     const [message, setMessage] = useState('');
-
+    const [showAttachments, setShowAttachments] = useState(false);
     const tasks = [
         {
             id: 1,
@@ -65,7 +65,11 @@ const Chatbox = () => {
             sender: "Sarah Chen",
             text: "Will do. Should we use Swagger for the interactive documentation?",
             timestamp: "09:40 AM",
-            type: "received"
+            type: "received",
+            attachments: [
+                { type: 'image', name: 'auth-flow.png', size: '2.4 MB' },
+                { type: 'file', name: 'api-specs.pdf', size: '1.2 MB' }
+            ]
         }, {
             id: 5,
             sender: "Sarah Chen",
@@ -160,6 +164,20 @@ const handleFileAttachment = (event) => {
 const removeAttachment = (index) => {
     setAttachments(attachments.filter((_, i) => i !== index));
 };
+const getAllAttachments = () => {
+    const currentChat = chats[selectedChat] || [];
+    return currentChat.reduce((acc, message) => {
+        if (message.attachments && message.attachments.length > 0) {
+            return [...acc, ...message.attachments.map(attachment => ({
+                ...attachment,
+                sender: message.sender,
+                timestamp: message.timestamp
+            }))];
+        }
+        return acc;
+    }, []);
+};
+
 
 return (
     <div className="tailwind-scope">
@@ -181,51 +199,93 @@ return (
                                 <h3 className="tw-font-medium tw-text-gray-900">{task.title}</h3>
                                 {getStatusIcon(task.status)}
                             </div>
-                            <div className="tw-flex tw-items-center tw-gap-2 tw-mb-2">
-                                <span className={`tw-px-2 tw-py-1 tw-rounded-full tw-text-xs tw-font-medium ${getPriorityColor(task.priority)}`}>
-                                    {task.priority}
-                                </span>
-                                <span className="tw-text-sm tw-text-gray-500">{task.assignee}</span>
-                            </div>
-                            <div className="tw-text-xs tw-text-gray-500">
-                                Due: {new Date(task.dueDate).toLocaleDateString()}
-                            </div>
+                            
+                           
                         </div>
                     ))}
                 </div>
             </div>
 
             {/* Chat Area */}
-            <div className="tw-flex-1 tw-flex tw-flex-col tw-bg-black">
-                {/* Chat Header */}
-                <div className="tw-p-4 tw-bg-white tw-border-b tw-border-gray-200 tw-shadow-sm">
-                    <div className="tw-flex tw-items-center tw-gap-3">
-                        <MessageSquare className="tw-w-6 tw-h-6 tw-text-blue-500" />
-                        <h2 className="tw-text-xl tw-font-bold tw-text-gray-800">
-                            {tasks.find(t => t.id === selectedChat)?.title}
-                        </h2>
-                    </div>
-                </div>
+            <div className="tw-flex-1 tw-flex tw-flex-col tw-bg-gray-50">
+                    {/* Chat Header */}
+                    <div className="tw-p-4 tw-bg-white tw-border-b tw-border-gray-200 tw-shadow-sm">
+                        <div className="tw-flex tw-items-center tw-justify-between">
+                            <div className="tw-flex tw-items-center tw-gap-3">
+                                <MessageSquare className="tw-w-6 tw-h-6 tw-text-blue-500" />
+                                <h2 className="tw-text-xl tw-font-bold tw-text-gray-800">
+                                    {tasks.find(t => t.id === selectedChat)?.title}
+                                </h2>
+                            </div>
+                            <button
+                                onClick={() => setShowAttachments(!showAttachments)}
+                                className="tw-flex tw-items-center tw-gap-2 tw-px-4 tw-py-2 tw-text-blue-500 tw-font-medium tw-rounded-lg hover:tw-bg-blue-50 tw-transition-colors"
+                            >
+                                <Paperclip className="tw-w-4 tw-h-4" />
+                                Attachments
+                                {showAttachments ? (
+                                    <ChevronUp className="tw-w-4 tw-h-4" />
+                                ) : (
+                                    <ChevronDown className="tw-w-4 tw-h-4" />
+                                )}
+                            </button>
+                        </div>
 
-                {/* Messages */}
-                <div className="tw-flex-1 tw-overflow-y-auto tw-p-4">
-                    <div className="tw-space-y-4">
+                        {/* Attachments Dropdown */}
+                        {showAttachments && (
+                            <div className="tw-absolute tw-right-4 tw-mt-2 tw-w-80 tw-bg-white tw-rounded-lg tw-shadow-xl tw-border tw-border-gray-200 tw-z-10">
+                                <div className="tw-p-4">
+                                    <h3 className="tw-text-lg tw-font-semibold tw-text-gray-800 tw-mb-4">All Attachments</h3>
+                                    <div className="tw-space-y-3 tw-max-h-96 tw-overflow-y-auto">
+                                        {getAllAttachments().map((attachment, index) => (
+                                            <div
+                                                key={index}
+                                                className="tw-flex tw-items-center tw-gap-3 tw-p-3 tw-rounded-lg tw-bg-gray-50 hover:tw-bg-gray-100 tw-transition-colors"
+                                            >
+                                                {attachment.type === 'image' ? (
+                                                    <Image className="tw-w-5 tw-h-5 tw-text-blue-500" />
+                                                ) : (
+                                                    <Paperclip className="tw-w-5 tw-h-5 tw-text-blue-500" />
+                                                )}
+                                                <div className="tw-flex-1">
+                                                    <div className="tw-text-sm tw-font-medium tw-text-gray-800">{attachment.name}</div>
+                                                    <div className="tw-text-xs tw-text-gray-500">
+                                                        {attachment.sender} • {attachment.timestamp}
+                                                    </div>
+                                                </div>
+                                                <span className="tw-text-xs tw-text-gray-400">{attachment.size}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Messages Area */}
+                    <div className="tw-flex-1 tw-overflow-y-auto tw-p-4 tw-space-y-4">
                         {chats[selectedChat]?.map((message) => (
                             <div
                                 key={message.id}
-                                className={`tw-flex ${message.type === 'sent' ? 'tw-justify-end' : 'tw-justify-start'
-                                    }`}
+                                className={`tw-flex ${message.type === 'sent' ? 'tw-justify-end' : 'tw-justify-start'}`}
                             >
                                 <div
-                                    className={`tw-max-w-[70%] tw-rounded-lg tw-p-4 tw-shadow-sm ${message.type === 'sent'
+                                    className={`tw-max-w-[70%] tw-rounded-lg tw-p-4 tw-shadow-md ${
+                                        message.type === 'sent'
                                             ? 'tw-bg-blue-500 tw-text-white'
-                                            : 'tw-bg-orange-500 tw-text-white'
-                                        }`}
+                                            : 'tw-bg-white tw-border tw-border-gray-200'
+                                    }`}
                                 >
-                                    <div className="tw-font-medium tw-text-sm tw-mb-1">
+                                    <div className={`tw-font-medium tw-text-sm tw-mb-1 ${
+                                        message.type === 'sent' ? 'tw-text-white' : 'tw-text-gray-800'
+                                    }`}>
                                         {message.sender}
                                     </div>
-                                    <div className="tw-text-sm">{message.text}</div>
+                                    <div className={`tw-text-sm ${
+                                        message.type === 'sent' ? 'tw-text-white' : 'tw-text-gray-700'
+                                    }`}>
+                                        {message.text}
+                                    </div>
 
                                     {/* Message Attachments */}
                                     {message.attachments && message.attachments.length > 0 && (
@@ -233,8 +293,11 @@ return (
                                             {message.attachments.map((attachment, index) => (
                                                 <div
                                                     key={index}
-                                                    className={`tw-flex tw-items-center tw-gap-2 tw-p-2 tw-rounded ${message.type === 'sent' ? 'tw-bg-blue-400' : 'tw-bg-gray-100'
-                                                        }`}
+                                                    className={`tw-flex tw-items-center tw-gap-2 tw-p-2 tw-rounded ${
+                                                        message.type === 'sent'
+                                                            ? 'tw-bg-blue-400'
+                                                            : 'tw-bg-gray-100'
+                                                    }`}
                                                 >
                                                     {attachment.type === 'image' ? (
                                                         <Image className="tw-w-4 tw-h-4" />
@@ -248,82 +311,62 @@ return (
                                         </div>
                                     )}
 
-                                    <div
-                                        className={`tw-text-xs tw-mt-2 ${message.type === 'sent' ? 'tw-text-blue-100' : 'tw-text-orange-100'
-                                            }`}
-                                    >
+                                    <div className={`tw-text-xs tw-mt-2 ${
+                                        message.type === 'sent' ? 'tw-text-blue-100' : 'tw-text-gray-400'
+                                    }`}>
                                         {message.timestamp}
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
-                </div>
 
-                {/* Attachment Preview */}
-                {attachments.length > 0 && (
-                    <div className="tw-p-2 tw-bg-gray-50 tw-border-t tw-border-gray-200">
-                        <div className="tw-flex tw-flex-wrap tw-gap-2">
-                            {attachments.map((file, index) => (
-                                <div key={index} className="tw-flex tw-items-center tw-gap-2 tw-bg-white tw-rounded-lg tw-p-2 tw-shadow-sm">
-                                    {file.type === 'image' ? (
-                                        <Image className="tw-w-4 tw-h-4 tw-text-blue-500" />
-                                    ) : (
-                                        <Paperclip className="tw-w-4 tw-h-4 tw-text-blue-500" />
-                                    )}
-                                    <span className="tw-text-sm">{file.name}</span>
-                                    <button
-                                        onClick={() => removeAttachment(index)}
-                                        className="tw-text-gray-500 hover:tw-text-red-500"
-                                    >
-                                        <X className="tw-w-4 tw-h-4" />
-                                    </button>
+                    {/* Message Input Area */}
+                    <div className="tw-p-4 tw-bg-white tw-border-t tw-border-gray-200">
+                        <div className="tw-flex tw-gap-2">
+                            <div className="tw-flex-1 tw-flex tw-items-center tw-gap-2 tw-bg-gray-50 tw-rounded-lg tw-border tw-border-gray-200 tw-px-4 tw-py-2">
+                                <input
+                                    type="text"
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    placeholder="Type your message..."
+                                    className="tw-input tw-input-bordered tw-input-info  tw-flex-1 tw-bg-transparent focus:tw-outline"
+                                    />
+                                <div className="tw-flex tw-items-center tw-gap-2">
+                                    <label className="tw-cursor-pointer tw-text-gray-400 hover:tw-text-blue-500 tw-transition-colors">
+                                        <input
+                                            type="file"
+                                            multiple
+                                            onChange={handleFileAttachment}
+                                            className="tw-hidden"
+                                        />
+                                        <Paperclip className="tw-w-5 tw-h-5" />
+                                    </label>
+                                    <label className="tw-cursor-pointer tw-text-gray-400 hover:tw-text-blue-500 tw-transition-colors">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            multiple
+                                            onChange={handleFileAttachment}
+                                            className="tw-hidden"
+                                        />
+                                        <Image className="tw-w-5 tw-h-5" />
+                                    </label>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-                {/* Message Input */}
-                <div className="tw-p-4 tw-bg-white tw-border-t tw-border-gray-200">
-                    <div className="tw-flex tw-gap-2">
-                        <div className="tw-flex-1 tw-flex tw-items-center tw-gap-2 tw-bg-gray-50 tw-rounded-lg tw-border tw-border-gray-300 tw-px-4 tw-py-2">
-                            <input
-                                type="text"
-                                value={message}
-                                onChange={(e) => setMessage(e.target.value)}
-                                placeholder="Type your message..."
-                                className="tw-input tw-input-bordered tw-input-info  tw-flex-1 tw-bg-transparent focus:tw-outline"
-                            />
-                            <div className="tw-flex tw-items-center tw-gap-2">
-                                <label className="tw-cursor-pointer tw-text-gray-500 hover:tw-text-blue-500">
-                                    <input
-                                        type="file"
-                                        multiple
-                                        onChange={handleFileAttachment}
-                                        className="tw-hidden"
-                                    />
-                                    <Paperclip className="tw-w-5 tw-h-5" />
-                                </label>
-                                <label className="tw-cursor-pointer tw-text-gray-500 hover:tw-text-blue-500">
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        multiple
-                                        onChange={handleFileAttachment}
-                                        className="tw-hidden"
-                                    />
-                                    <Image className="tw-w-5 tw-h-5" />
-                                </label>
                             </div>
+                            <button 
+                                className="tw-p-3 tw-bg-blue-500 tw-text-white tw-rounded-lg hover:tw-bg-blue-600 
+                                          focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 
+                                          focus:tw-ring-offset-2 tw-transition-all tw-duration-200 
+                                          hover:tw-shadow-lg active:tw-scale-95 tw-flex tw-items-center 
+                                          tw-justify-center tw-min-w-[60px]"
+                            >
+                                <Send className="tw-w-6 tw-h-6 tw-transform tw-rotate-45" />
+                            </button>
                         </div>
-                        <button className="tw-p-2 tw-bg-blue-500 tw-text-white tw-rounded-lg hover:tw-bg-blue-600 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-ring-offset-2 tw-transition-colors">
-                            <Send className="tw-w-10 tw-h-5" />
-                        </button>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 );
 };
