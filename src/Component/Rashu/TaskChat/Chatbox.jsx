@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { MessageSquare, CheckCircle, Clock, AlertTriangle, Paperclip, Image, Send, X, ChevronDown, ChevronUp } from 'lucide-react';
 
+import { MessageSquare, CheckCircle, Clock, AlertTriangle, Paperclip, Image, Send, MoreVertical, Plus, ChevronDown, ChevronUp, Info } from 'lucide-react';
+import NewTaskModal from '../CreateNewTask/NewTaskModal'
+import GroupInfoModal from '../GroupInfo/GroupInfoModal';
 const Chatbox = () => {
     const [selectedChat, setSelectedChat] = useState(1);
     const [attachments, setAttachments] = useState([]);
     const [message, setMessage] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isGroupInfoOpen, setIsGroupInfoOpen] = useState(false);
+    const [isGroupMenuOpen, setIsGroupMenuOpen] = useState(false);
+
     const [showAttachments, setShowAttachments] = useState(false);
     const tasks = [
         {
@@ -72,8 +78,8 @@ const Chatbox = () => {
                 timestamp: "09:40 AM",
                 type: "received",
                 attachments: [
-                    { type: 'image', name: 'auth-flow.png', size: '2.4 MB',url:'https://picsum.photos/200/300 ' },
-                    { type: 'file', name: 'api-specs.pdf', size: '1.2 MB' }, { type: 'file', name: 'api-specs.pdf', size: '1.2 MB',url:'https://www.orimi.com/pdf-test.pdfhttps://www.hq.nasa.gov/alsj/a17/A17_FlightPlan.pdf' }
+                    { type: 'image', name: 'auth-flow.png', size: '2.4 MB', url: 'https://picsum.photos/200/300 ' },
+                    { type: 'file', name: 'api-specs.pdf', size: '1.2 MB' }, { type: 'file', name: 'api-specs.pdf', size: '1.2 MB', url: 'https://www.orimi.com/pdf-test.pdfhttps://www.hq.nasa.gov/alsj/a17/A17_FlightPlan.pdf' }
                 ]
             }, {
                 id: 5,
@@ -153,10 +159,10 @@ const Chatbox = () => {
         }
     };
 
-  
-        const handleAttachmentClick = (attachment) => {
-          window.open(attachment.url, '_blank');
-        };
+
+    const handleAttachmentClick = (attachment) => {
+        window.open(attachment.url, '_blank');
+    };
 
     const handleFileAttachment = (event) => {
         const files = Array.from(event.target.files);
@@ -182,35 +188,70 @@ const Chatbox = () => {
         }, []);
     };
 
+    const handleCreateTask = () => {
+
+        setIsModalOpen(false);
+    };
+
+
+
 
     return (
         <div className="tailwind-scope">
             <div className="tw-flex tw-h-screen tw-bg-gray-100">
-                {/* Task List Sidebar */}
-                <div className="tw-w-1/3 tw-bg-teal-950 tw-border-r tw-border-gray-200 tw-overflow-y-auto tw-shadow-lg">
-                    <div className="tw-p-3 tw-border-b tw-border-gray-200 tw-bg-indigo-950">
+
+                <div className="tw-w-1/3 tw-bg-teal-950 tw-border-r tw-border-gray-200 tw-overflow-y-auto tw-shadow-lg tw-relative">
+                    <div className="tw-p-3 tw-border-b tw-border-gray-200 tw-bg-indigo-950 tw-flex tw-items-center tw-justify-between">
                         <h2 className="tw-text-2xl tw-font-bold tw-text-white">Tasks</h2>
+                        <div className="tw-relative">
+                        <button  onClick={() => setIsGroupInfoOpen(true)} className="tw-btn tw-btn-outline tw-btn-accent">Group Info</button>
+                           
+                                
+                         
+
+                        </div>
                     </div>
                     <div className="tw-divide-y tw-divide-gray-300">
                         {tasks.map((task) => (
                             <div
                                 key={task.id}
                                 onClick={() => setSelectedChat(task.id)}
-                                className={`tw-p-5  tw-shadow-md tw-transition-all tw-duration-300 tw-cursor-pointer
-                    ${selectedChat === task.id
-                                        ? 'tw-bg-black tw-text-white tw-border-l-4 tw-border-gray-700 tw-shadow-lg'  // Selected style
-                                        : 'tw-bg-slate-700 tw-text-white hover:tw-bg-gray-100 hover:tw-shadow-lg hover:tw-text-gray-950'  // Normal and hover styles
+                                className={`tw-p-5 tw-shadow-md tw-transition-all tw-duration-300 tw-cursor-pointer
+                  ${selectedChat === task.id
+                                        ? 'tw-bg-black tw-text-white tw-border-l-4 tw-border-gray-700 tw-shadow-lg'
+                                        : 'tw-bg-slate-700 tw-text-white hover:tw-bg-gray-100 hover:tw-shadow-lg hover:tw-text-gray-950'
                                     }`}
                             >
                                 <div className="tw-flex tw-items-center tw-justify-between">
                                     <h3 className="tw-font-semibold tw-text-lg">{task.title}</h3>
                                     {getStatusIcon(task.status)}
                                 </div>
-                                <p className="tw-text-sm tw-text-gray-600">{task.description}</p>
                             </div>
                         ))}
                     </div>
+
+                    {/* Floating Action Button */}
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="tw-absolute tw-bottom-4 tw-right-4 tw-bg-indigo-600 tw-text-white tw-rounded-full tw-p-4 tw-shadow-2xl hover:tw-bg-indigo-700 tw-transition-colors tw-z-40"
+                    >
+                        <Plus className="tw-h-6 tw-w-6" />
+                    </button>
+                    {/* New Task Modal */}
+                    <NewTaskModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        onCreateTask={handleCreateTask}
+                    />
+                    {/* Group Info Modal */}
+                    <GroupInfoModal
+                        isOpen={isGroupInfoOpen}
+                        onClose={() => setIsGroupInfoOpen(false)}
+                    />
                 </div>
+
+
+
 
 
                 {/* Chat Area */}
@@ -239,34 +280,34 @@ const Chatbox = () => {
                         </div>
 
                         {showAttachments && (
-        <div className="tw-absolute tw-right-4 tw-mt-2 tw-w-80 tw-bg-white tw-rounded-lg tw-shadow-xl tw-border tw-border-gray-200 tw-z-10">
-          <div className="tw-p-4">
-            <h3 className="tw-text-lg tw-font-semibold tw-text-gray-800 tw-mb-4">All Attachments</h3>
-            <div className="tw-space-y-3 tw-max-h-96 tw-overflow-y-auto">
-              {getAllAttachments().map((attachment, index) => (
-                <div
-                  key={index}
-                  className="tw-flex tw-items-center tw-gap-3 tw-p-3 tw-rounded-lg tw-bg-gray-50 hover:tw-bg-gray-100 tw-transition-colors tw-cursor-pointer"
-                  onClick={() => handleAttachmentClick(attachment)}
-                >
-                  {attachment.type === 'image' ? (
-                    <Image className="tw-w-5 tw-h-5 tw-text-blue-500" />
-                  ) : (
-                    <Paperclip className="tw-w-5 tw-h-5 tw-text-blue-500" />
-                  )}
-                  <div className="tw-flex-1">
-                    <div className="tw-text-sm tw-font-medium tw-text-gray-800">{attachment.name}</div>
-                    <div className="tw-text-xs tw-text-gray-500">
-                      {attachment.sender} • {attachment.timestamp}
-                    </div>
-                  </div>
-                  <span className="tw-text-xs tw-text-gray-400">{attachment.size}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+                            <div className="tw-absolute tw-right-4 tw-mt-2 tw-w-80 tw-bg-white tw-rounded-lg tw-shadow-xl tw-border tw-border-gray-200 tw-z-10">
+                                <div className="tw-p-4">
+                                    <h3 className="tw-text-lg tw-font-semibold tw-text-gray-800 tw-mb-4">All Attachments</h3>
+                                    <div className="tw-space-y-3 tw-max-h-96 tw-overflow-y-auto">
+                                        {getAllAttachments().map((attachment, index) => (
+                                            <div
+                                                key={index}
+                                                className="tw-flex tw-items-center tw-gap-3 tw-p-3 tw-rounded-lg tw-bg-gray-50 hover:tw-bg-gray-100 tw-transition-colors tw-cursor-pointer"
+                                                onClick={() => handleAttachmentClick(attachment)}
+                                            >
+                                                {attachment.type === 'image' ? (
+                                                    <Image className="tw-w-5 tw-h-5 tw-text-blue-500" />
+                                                ) : (
+                                                    <Paperclip className="tw-w-5 tw-h-5 tw-text-blue-500" />
+                                                )}
+                                                <div className="tw-flex-1">
+                                                    <div className="tw-text-sm tw-font-medium tw-text-gray-800">{attachment.name}</div>
+                                                    <div className="tw-text-xs tw-text-gray-500">
+                                                        {attachment.sender} • {attachment.timestamp}
+                                                    </div>
+                                                </div>
+                                                <span className="tw-text-xs tw-text-gray-400">{attachment.size}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Messages Area */}
@@ -370,7 +411,7 @@ const Chatbox = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
