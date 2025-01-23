@@ -9,9 +9,21 @@ const Chatbox = () => {
     const [message, setMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isGroupInfoOpen, setIsGroupInfoOpen] = useState(false);
-    const [isGroupMenuOpen, setIsGroupMenuOpen] = useState(false);
+  
 
     const [showAttachments, setShowAttachments] = useState(false);
+    const groupData = {
+        name: "Project Management Group",
+        createdDate: "January 15, 2025",
+        activeProjects: 5,
+        description: "Collaborative team focused on software development and project management tasks.",
+        members: [
+            { name: "Sarah Chen", role: "Admin" },
+            { name: "Mike Johnson", role: "Member" },
+            { name: "Lisa Wong", role: "Member" },
+            { name: "John Doe", role: "Member" }
+        ]
+    }
     const tasks = [
         {
             id: 1,
@@ -42,10 +54,9 @@ const Chatbox = () => {
     const chats = {
         "1": [
             {
-                id: 1,
                 sender: "Sarah Chen",
                 text: "I've started working on the API endpoints documentation",
-                timestamp: "09:30 AM",
+                timestamp: 1737605400000,
                 type: "received",
                 attachments: []
             },
@@ -53,45 +64,14 @@ const Chatbox = () => {
                 id: 2,
                 sender: "John Doe",
                 text: "Great! Make sure to include authentication examples",
-                timestamp: "09:35 AM",
-                type: "sent",
-                attachments: [
-                    {
-                        type: 'image',
-                        name: 'weather-demo.png',
-                        size: '3.1 MB',
-                        url: 'https://fastly.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY'
-                    }]
+                timestamp: 1737605400000,
+                type: "sent"
             },
-
             {
                 id: 3,
                 sender: "Sarah Chen",
                 text: "Will do. Should we use Swagger for the interactive documentation?",
-                timestamp: "09:40 AM",
-                type: "received"
-            },
-            {
-                id: 4,
-                sender: "Sarah Chen",
-                text: "Will do. Should we use Swagger for the interactive documentation?",
-                timestamp: "09:40 AM",
-                type: "received",
-                attachments: [
-                    { type: 'image', name: 'auth-flow.png', size: '2.4 MB', url: 'https://picsum.photos/200/300 ' },
-                    { type: 'file', name: 'api-specs.pdf', size: '1.2 MB' }, { type: 'file', name: 'api-specs.pdf', size: '1.2 MB', url: 'https://www.orimi.com/pdf-test.pdfhttps://www.hq.nasa.gov/alsj/a17/A17_FlightPlan.pdf' }
-                ]
-            }, {
-                id: 5,
-                sender: "Sarah Chen",
-                text: "Will do. Should we use Swagger for the interactive documentation?",
-                timestamp: "09:40 AM",
-                type: "received"
-            }, {
-                id: 6,
-                sender: "Sarah Chen",
-                text: "Will do. Should we use Swagger for the interactive documentation?",
-                timestamp: "09:40 AM",
+                timestamp: 1737605400100,
                 type: "received"
             }
         ],
@@ -100,14 +80,14 @@ const Chatbox = () => {
                 id: 1,
                 sender: "Mike Johnson",
                 text: "I've submitted the PR for the new feature",
-                timestamp: "10:15 AM",
+                timestamp: 1737605460000,
                 type: "received"
             },
             {
                 id: 2,
                 sender: "John Doe",
                 text: "Looking at it now. Initial feedback: we need more test coverage",
-                timestamp: "10:20 AM",
+                timestamp: 1737605500000,
                 type: "sent"
             }
         ],
@@ -116,25 +96,71 @@ const Chatbox = () => {
                 id: 1,
                 sender: "Lisa Wong",
                 text: "Security audit report is ready for review",
-                timestamp: "11:00 AM",
+                timestamp: 1737605400000,
                 type: "received"
             },
             {
                 id: 2,
                 sender: "John Doe",
                 text: "Any critical findings we should address immediately?",
-                timestamp: "11:05 AM",
+                timestamp:1737605400000,
                 type: "sent"
             },
             {
                 id: 3,
                 sender: "Lisa Wong",
                 text: "Yes, found 2 high-priority vulnerabilities. Details in the report.",
-                timestamp: "11:10 AM",
+                timestamp: 1737605400000,
                 type: "received"
             }
         ]
     };
+
+    const attachmentDummy = {
+        "1": [
+            {
+                id: 1,
+                sender: "Sarah Chen",
+                timestamp: 1737605400000,
+                type: "received",
+                attachments: []
+            },
+            {
+                id: 2,
+                sender: "John Doe",
+                timestamp: 1737605202000,
+                type: "sent",
+                attachments: [
+                    {
+                        type: 'image',
+                        name: 'weather-demo.png',
+                        size: '3.1 MB',
+                        url: 'https://fastly.picsum.photos/id/1/200/300.jpg?hmac=jH5bDkLr6Tgy3oAg5khKCHeunZMHq0ehBZr6vGifPLY'
+                    }
+                ]
+            },
+            {
+                id: 3,
+                sender: "Sarah Chen",
+                timestamp:1737606400000,
+                type: "received",
+                attachments: [
+                    { type: 'file', name: 'api-specs.pdf', size: '1.2 MB' },
+                    { type: 'file', name: 'api-specs.pdf', size: '1.2 MB', url: 'https://www.orimi.com/pdf-test.pdf' }
+                ]
+            },
+            {
+                id: 4,
+                sender: "Sarah Chen",
+                timestamp: 1737615400000,
+                type: "received",
+                attachments: [
+                    { type: 'image', name: 'auth-flow.png', size: '2.4 MB', url: 'https://picsum.photos/200/300' }
+                ]
+            }
+        ]
+    };
+
 
     const handleSendMessage = () => {
         // Handle send message logic here
@@ -175,7 +201,7 @@ const Chatbox = () => {
 
 
     const getAllAttachments = () => {
-        const currentChat = chats[selectedChat] || [];
+        const currentChat = attachmentDummy[selectedChat] || [];
         return currentChat.reduce((acc, message) => {
             if (message.attachments && message.attachments.length > 0) {
                 return [...acc, ...message.attachments.map(attachment => ({
@@ -204,10 +230,7 @@ const Chatbox = () => {
                     <div className="tw-p-3 tw-border-b tw-border-gray-200 tw-bg-indigo-950 tw-flex tw-items-center tw-justify-between">
                         <h2 className="tw-text-2xl tw-font-bold tw-text-white">Tasks</h2>
                         <div className="tw-relative">
-                        <button  onClick={() => setIsGroupInfoOpen(true)} className="tw-btn tw-btn-outline tw-btn-accent">Group Info</button>
-                           
-                                
-                         
+                            <button onClick={() => setIsGroupInfoOpen(true)} className="tw-btn tw-btn-outline tw-btn-accent">Group Info</button>
 
                         </div>
                     </div>
@@ -247,6 +270,7 @@ const Chatbox = () => {
                     <GroupInfoModal
                         isOpen={isGroupInfoOpen}
                         onClose={() => setIsGroupInfoOpen(false)}
+                        groupData={groupData}
                     />
                 </div>
 
@@ -312,58 +336,85 @@ const Chatbox = () => {
 
                     {/* Messages Area */}
                     <div className="tw-flex-1 tw-overflow-y-auto tw-p-4 tw-space-y-4 tw-bg-black">
-                        {chats[selectedChat]?.map((message) => (
-                            <div
-                                key={message.id}
-                                className={`tw-flex ${message.type === 'sent' ? 'tw-chat tw-chat-end' : 'tw-chat tw-chat-start'}`}
-                            >
-                                <div
-                                    className={`tw-max-w-[70%] tw-chat-bubble  tw-p-4 ${message.type === 'sent'
-                                        ? 'tw-bg-blue-600 tw-ml-auto'
-                                        : 'tw-bg-orange-600 tw-mr-auto'
-                                        }`}
-                                >
-                                    <div className="tw-font-medium tw-text-sm tw-mb-1 tw-text-white">
-                                        {message.sender}
-                                    </div>
-                                    <div className="tw-text-sm tw-text-white">
-                                        {message.text}
-                                    </div>
+                    {(() => {
+        // Combine chats and attachments
+        const combinedMessages = [
+            ...(chats[selectedChat] || []),
+            ...(attachmentDummy[selectedChat] || [])
+        ];
 
-                                    {message.attachments && message.attachments.length > 0 && (
-                                        <div className="tw-mt-3 tw-space-y-2">
-                                            {message.attachments.map((attachment, index) => (
-                                                <div key={index}>
-                                                    {attachment.type === 'image' ? (
-                                                        <div className="tw-w-full">
-                                                            <img
-                                                                src={attachment.url}
-                                                                alt={attachment.name}
-                                                                className="tw-w-full tw-rounded-md tw-max-h-96 tw-object-contain"
-                                                            />
-                                                            <div className="tw-flex tw-justify-between tw-items-center tw-mt-1">
+        // Sort messages by timestamp
+        const sortedMessages = combinedMessages.sort((a, b) => {
+            // Ensure timestamps are converted to numbers for comparison
+            return Number(a.timestamp) - Number(b.timestamp);
+        });
 
-                                                            </div>
-                                                        </div>
-                                                    ) : (
-                                                        <div className="tw-flex tw-items-center tw-gap-2 tw-p-2 tw-rounded-md tw-bg-opacity-50 tw-cursor-pointer">
-                                                            <Paperclip className="tw-w-4 tw-h-4 tw-text-white" />
-                                                            <span onClick={handleAttachmentClick} className="tw-text-white  tw-text-xs">{attachment.name}</span>
-                                                            <span className="tw-text-xs tw-text-gray-200">({attachment.size})</span>
-                                                        </div>
-                                                    )}
+        return sortedMessages.map((message) => {
+            // Format timestamp 
+            const formattedTime = new Date(Number(message.timestamp)).toLocaleString("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+            });
+
+            return (
+                <div
+                    key={message.id || Math.random()}
+                    className={`tw-flex ${message.type === 'sent' ? 'tw-chat tw-chat-end' : 'tw-chat tw-chat-start'}`}
+                >
+                                        <div
+                                            className={`tw-max-w-[70%] tw-chat-bubble tw-p-4 ${message.type === 'sent' ? 'tw-bg-blue-600 tw-ml-auto' : 'tw-bg-orange-600 tw-mr-auto'
+                                                }`}
+                                        >
+                                            <div className="tw-font-medium tw-text-sm tw-mb-1 tw-text-white">
+                                                {message.sender}
+                                            </div>
+
+                                            {message.text && (
+                                                <div className="tw-text-sm tw-text-white">
+                                                    {message.text}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    )}
+                                            )}
 
-                                    <div className={`tw-text-xs tw-mt-2 ${message.type === 'sent' ? 'tw-text-blue-200' : 'tw-text-orange-200'
-                                        }`}>
-                                        {message.timestamp}
+                                            {message.attachments && message.attachments.length > 0 && (
+                                                <div className="tw-mt-3 tw-space-y-2">
+                                                    {message.attachments.map((attachment, index) => (
+                                                        <div key={index}>
+                                                            {attachment.type === 'image' ? (
+                                                                <div className="tw-w-full">
+                                                                    <img
+                                                                        src={attachment.url.trim()}
+                                                                        alt={attachment.name}
+                                                                        className="tw-w-full tw-rounded-md tw-max-h-96 tw-object-contain"
+                                                                    />
+                                                                </div>
+                                                            ) : (
+                                                                <div className="tw-flex tw-items-center tw-gap-2 tw-p-2 tw-rounded-md tw-bg-opacity-50 tw-cursor-pointer">
+                                                                    <Paperclip className="tw-w-4 tw-h-4 tw-text-white" />
+                                                                    <span onClick={handleAttachmentClick} className="tw-text-white tw-text-xs">
+                                                                        {attachment.name}
+                                                                    </span>
+                                                                    <span className="tw-text-xs tw-text-gray-200">({attachment.size})</span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+
+                                            <div className={`tw-text-xs tw-mt-2 ${message.type === 'sent' ? 'tw-text-blue-200' : 'tw-text-orange-200'}`}>
+                                                {formattedTime}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        ))}
+                                );
+                            });
+                        })()}
+
                     </div>
 
                     {/* Message Input Area */}
