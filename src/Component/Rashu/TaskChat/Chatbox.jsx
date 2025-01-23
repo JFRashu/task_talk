@@ -290,12 +290,12 @@ const Chatbox = () => {
                     />
 
                     {/* Floating Action Button */}
-                    <button
+                    <button 
                         onClick={() => setIsModalOpen(true)}
-                        className="tw-absolute tw-bottom-4 tw-right-4 tw-bg-indigo-600 tw-text-white tw-rounded-full tw-p-4 tw-shadow-2xl hover:tw-bg-indigo-700 tw-transition-colors tw-z-40"
+                        className="tw-absolute tw-bottom-4 tw-right-4 tw-bg-indigo-300 tw-text-black tw-rounded-lg tw-p-4 tw-shadow-2xl hover:tw-bg-indigo-600 tw-transition-colors tw-z-40 hover:tw-text-white"
                     >
                         <Plus className="tw-h-6 tw-w-6" />
-                    </button>
+                    </button> 
                     {/* New Task Modal */}
                     <NewTaskModal
                         isOpen={isModalOpen}

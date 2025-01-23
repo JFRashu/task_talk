@@ -26,6 +26,7 @@ const NewTaskModal = ({ isOpen, onClose, onCreateTask }) => {
   if (!isOpen) return null;
 
   return (
+    <div className="tailwind-scope">
     <div className="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-center tw-justify-center tw-bg-black tw-bg-opacity-50">
       <div className="tw-bg-white tw-w-96 tw-p-6 tw-rounded-xl tw-shadow-2xl tw-relative tw-transform tw-transition-all tw-duration-300 tw-scale-100">
         <button 
@@ -53,7 +54,7 @@ const NewTaskModal = ({ isOpen, onClose, onCreateTask }) => {
               name="description"
               value={newTask.description}
               onChange={handleInputChange}
-              className="tw-mt-1 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-p-2"
+              className="tw-mt-1 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-p-2 "
             />
           </div>
           
@@ -65,6 +66,7 @@ const NewTaskModal = ({ isOpen, onClose, onCreateTask }) => {
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 };
