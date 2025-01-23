@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
-import { MessageSquare, CheckCircle, Clock, AlertTriangle, Paperclip, Image, Send, MoreVertical, Plus, ChevronDown, ChevronUp, Info } from 'lucide-react';
+import { CheckCircle, Clock, AlertTriangle,  Plus } from 'lucide-react';
 import NewTaskModal from '../CreateNewTask/NewTaskModal';
 import GroupInfoModal from '../GroupInfo/GroupInfoModal';
 import TaskHeader from '../SubComponents/TaskHeader';
 import TaskList from '../SubComponents/TaskList';
 import ChatHeader from '../SubComponents/ChatHeader';
+import MessagesArea from '../SubComponents/MessagesArea';
+import MessageInput from '../SubComponents/MessageInput';
+
 const Chatbox = () => {
     const [selectedChat, setSelectedChat] = useState(1);
     const [attachments, setAttachments] = useState([]);
@@ -29,34 +32,34 @@ const Chatbox = () => {
     }
     const tasks = [
         {
+            gid:1,
             id: 1,
             title: "Complete API Documentation",
             status: "in-progress",
-            priority: "high",
-            assignee: "Sarah Chen",
-            dueDate: "2025-02-01"
+           
         },
         {
+            gid:1,
             id: 2,
             title: "Review Pull Requests",
             status: "pending",
-            priority: "medium",
-            assignee: "Mike Johnson",
-            dueDate: "2025-01-25"
+           
         },
         {
+            gid:1,
             id: 3,
             title: "Security Audit",
             status: "completed",
-            priority: "critical",
-            assignee: "Lisa Wong",
-            dueDate: "2025-01-20"
+            
         }
     ];
 
     const chats = {
-        "1": [
+        1: [
             {
+                id:1,
+                gid:1,
+                tid:1,
                 sender: "Sarah Chen",
                 text: "I've started working on the API endpoints documentation",
                 timestamp: 1737605400000,
@@ -65,6 +68,8 @@ const Chatbox = () => {
             },
             {
                 id: 2,
+                gid:1,
+                tid:1,
                 sender: "John Doe",
                 text: "Great! Make sure to include authentication examples",
                 timestamp: 1737605400000,
@@ -72,45 +77,57 @@ const Chatbox = () => {
             },
             {
                 id: 3,
+                gid:1,
+                tid:1,
                 sender: "Sarah Chen",
                 text: "Will do. Should we use Swagger for the interactive documentation?",
                 timestamp: 1737605400100,
                 type: "received"
             }
         ],
-        "2": [
+        2: [
             {
-                id: 1,
+                id: 4,
+                gid:1,
+                tid:2,
                 sender: "Mike Johnson",
                 text: "I've submitted the PR for the new feature",
                 timestamp: 1737605460000,
                 type: "received"
             },
             {
-                id: 2,
+                id: 5,
+                gid:1,
+                tid:2,
                 sender: "John Doe",
                 text: "Looking at it now. Initial feedback: we need more test coverage",
                 timestamp: 1737605500000,
                 type: "sent"
             }
         ],
-        "3": [
+        3: [
             {
-                id: 1,
+                id: 6,
+                gid:1,
+                tid:3,
                 sender: "Lisa Wong",
                 text: "Security audit report is ready for review",
                 timestamp: 1737605400000,
                 type: "received"
             },
             {
-                id: 2,
+                id: 7,
+                gid:1,
+                tid:3,
                 sender: "John Doe",
                 text: "Any critical findings we should address immediately?",
                 timestamp: 1737605400000,
                 type: "sent"
             },
             {
-                id: 3,
+                id: 8,
+                gid:1,
+                tid:3,
                 sender: "Lisa Wong",
                 text: "Yes, found 2 high-priority vulnerabilities. Details in the report.",
                 timestamp: 1737605400000,
@@ -120,16 +137,20 @@ const Chatbox = () => {
     };
 
     const attachmentDummy = {
-        "1": [
+        1: [
             {
-                id: 1,
+                id: 9,
+                gid:1,
+                tid:3,
                 sender: "Sarah Chen",
                 timestamp: 1737605400000,
                 type: "received",
                 attachments: []
             },
             {
-                id: 2,
+                id: 10,
+                gid:1,
+                tid:3,
                 sender: "John Doe",
                 timestamp: 1737605202000,
                 type: "sent",
@@ -143,22 +164,38 @@ const Chatbox = () => {
                 ]
             },
             {
-                id: 3,
+                id: 11,
+                gid:1,
+                tid:3,
                 sender: "Sarah Chen",
                 timestamp: 1737606400000,
                 type: "received",
                 attachments: [
                     { type: 'file', name: 'api-specs.pdf', size: '1.2 MB' },
-                    { type: 'file', name: 'api-specs.pdf', size: '1.2 MB', url: 'https://www.orimi.com/pdf-test.pdf' }
+                   
                 ]
             },
             {
-                id: 4,
+                id: 12,
+                gid:1,
+                tid:3,
                 sender: "Sarah Chen",
                 timestamp: 1737615400000,
                 type: "received",
                 attachments: [
                     { type: 'image', name: 'auth-flow.png', size: '2.4 MB', url: 'https://picsum.photos/200/300' }
+                ]
+            },
+            {
+                id: 13,
+                gid:1,
+                tid:3,
+                sender: "Ryan",
+                timestamp: 1737615400000,
+                type: "received",
+                attachments: [
+                    
+                     { type: 'file', name: 'api-specs.pdf', size: '1.2 MB', url: 'https://www.orimi.com/pdf-test.pdf' }
                 ]
             }
         ]
@@ -202,7 +239,7 @@ const Chatbox = () => {
         }))]);
     };
 
-    const convertTime =(message)=>{
+    const convertTime = (message) => {
         const formattedTime = new Date(Number(message.timestamp)).toLocaleString("en-US", {
             year: "numeric",
             month: "2-digit",
@@ -280,141 +317,29 @@ const Chatbox = () => {
                 {/* Chat Area */}
                 <div className="tw-flex-1 tw-flex tw-flex-col tw-bg-gray-50">
                     {/* Chat Header */}
-                    <ChatHeader 
-            tasks={tasks}
-            selectedChat={selectedChat}
-            showAttachments={showAttachments}
-            setShowAttachments={setShowAttachments}
-            getAllAttachments={getAllAttachments}
-            handleAttachmentClick={handleAttachmentClick}
-        />
+                    <ChatHeader
+                        tasks={tasks}
+                        selectedChat={selectedChat}
+                        showAttachments={showAttachments}
+                        setShowAttachments={setShowAttachments}
+                        getAllAttachments={getAllAttachments}
+                        handleAttachmentClick={handleAttachmentClick}
+                    />
 
                     {/* Messages Area */}
-                    <div className="tw-flex-1 tw-overflow-y-auto tw-p-4 tw-space-y-4 tw-bg-black">
-                        {(() => {
-                            // Combine chats and attachments
-                            const combinedMessages = [
-                                ...(chats[selectedChat] || []),
-                                ...(attachmentDummy[selectedChat] || [])
-                            ];
-
-                            // Sort messages by timestamp
-                            const sortedMessages = combinedMessages.sort((a, b) => {
-                                // Ensure timestamps are converted to numbers for comparison
-                                return Number(a.timestamp) - Number(b.timestamp);
-                            });
-
-                            return sortedMessages.map((message) => {
-                                // Format timestamp 
-                                const formattedTime = new Date(Number(message.timestamp)).toLocaleString("en-US", {
-                                    year: "numeric",
-                                    month: "2-digit",
-                                    day: "2-digit",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    second: "2-digit",
-                                    hour12: true
-                                });
-
-                                return (
-                                    <div
-                                        key={message.id || Math.random()}
-                                        className={`tw-flex ${message.type === 'sent' ? 'tw-chat tw-chat-end' : 'tw-chat tw-chat-start'}`}
-                                    >
-                                        <div
-                                            className={`tw-max-w-[70%] tw-chat-bubble tw-p-4 ${message.type === 'sent' ? 'tw-bg-blue-600 tw-ml-auto' : 'tw-bg-orange-600 tw-mr-auto'
-                                                }`}
-                                        >
-                                            <div className="tw-font-medium tw-text-sm tw-mb-1 tw-text-white">
-                                                {message.sender}
-                                            </div>
-
-                                            {message.text && (
-                                                <div className="tw-text-sm tw-text-white">
-                                                    {message.text}
-                                                </div>
-                                            )}
-
-                                            {message.attachments && message.attachments.length > 0 && (
-                                                <div className="tw-mt-3 tw-space-y-2">
-                                                    {message.attachments.map((attachment, index) => (
-                                                        <div key={index}>
-                                                            {attachment.type === 'image' ? (
-                                                                <div className="tw-w-full">
-                                                                    <img
-                                                                        src={attachment.url.trim()}
-                                                                        alt={attachment.name}
-                                                                        className="tw-w-full tw-rounded-md tw-max-h-96 tw-object-contain"
-                                                                    />
-                                                                </div>
-                                                            ) : (
-                                                                <div className="tw-flex tw-items-center tw-gap-2 tw-p-2 tw-rounded-md tw-bg-opacity-50 tw-cursor-pointer">
-                                                                    <Paperclip className="tw-w-4 tw-h-4 tw-text-white" />
-                                                                    <span onClick={handleAttachmentClick} className="tw-text-white tw-text-xs">
-                                                                        {attachment.name}
-                                                                    </span>
-                                                                    <span className="tw-text-xs tw-text-gray-200">({attachment.size})</span>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            )}
-
-                                            <div className={`tw-text-xs tw-mt-2 ${message.type === 'sent' ? 'tw-text-blue-200' : 'tw-text-orange-200'}`}>
-                                                {formattedTime}
-                                            </div>
-                                        </div>
-                                    </div>
-                                );
-                            });
-                        })()}
-
-                    </div>
-
+                    <MessagesArea
+                        chats={chats}
+                       
+                        selectedChat={selectedChat}
+                   
+                    />
                     {/* Message Input Area */}
-                    <div className="tw-p-0  tw-bg-gray-800  ">
-                        <div className="tw-flex tw-bg-transparent tw-gap-2">
-                            <div className="tw-flex-1 tw-flex tw-items-center tw-gap-2 tw-bg-gray-800 tw-rounded-lg tw-px-2 tw-py-2">
-                                <input
-                                    type="text"
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    placeholder="Type your message..."
-                                    className="tw-input tw-input-bordered tw-input-info tw-text-gray-50  tw-flex-1 tw-bg-transparent focus:tw-outline"
-                                />
-                                <div className="tw-flex tw-items-center tw-gap-2">
-                                    <label className="tw-cursor-pointer tw-text-gray-400 hover:tw-text-blue-500 tw-transition-colors">
-                                        <input
-                                            type="file"
-                                            multiple
-                                            onChange={handleFileAttachment}
-                                            className="tw-hidden"
-                                        />
-                                        <Paperclip className="tw-w-5 tw-h-5" />
-                                    </label>
-                                    <label className="tw-cursor-pointer tw-text-gray-400 hover:tw-text-blue-500 tw-transition-colors">
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            multiple
-                                            onChange={handleFileAttachment}
-                                            className="tw-hidden"
-                                        />
-                                        <Image className="tw-w-5 tw-h-5" />
-                                    </label>
-                                </div>
-                            </div>
-                            <button onClick={handleSendMessage}
-                                className="tw-p-0 tw-bg-transparent tw-text-white tw-rounded-lg hover:tw-bg-gray-800 
-                                          focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 
-                                          
-                                          tw-justify-center tw-min-w-[60px]"
-                            >
-                                <Send className="tw-w-10- tw-h-10 tw-transform tw-rotate-25" />
-                            </button>
-                        </div>
-                    </div>
+                    <MessageInput
+                        message={message}
+                        setMessage={setMessage}
+                        handleFileAttachment={handleFileAttachment}
+                        handleSendMessage={handleSendMessage}
+                    />
                 </div>
             </div>
         </div >

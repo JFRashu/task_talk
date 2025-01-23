@@ -6,12 +6,22 @@ const TaskList = ({
     setSelectedChat, 
     getStatusIcon 
 }) => {
+    const handleTaskSelect = (taskId) => {
+        console.log('Selected Task ID:', taskId);
+        console.log('Current Selected Chat:', selectedChat);
+        
+        // Log all tasks for reference
+        console.log('All Tasks:', tasks);
+       
+        setSelectedChat(taskId);
+    };
+
     return (
         <div className="tw-divide-y tw-divide-gray-300">
             {tasks.map((task) => (
                 <div
                     key={task.id}
-                    onClick={() => setSelectedChat(task.id)}
+                    onClick={() => handleTaskSelect(task.id)}
                     className={`tw-p-5 tw-shadow-md tw-transition-all tw-duration-300 tw-cursor-pointer ${
                         selectedChat === task.id
                             ? 'tw-bg-black tw-text-white tw-border-l-4 tw-border-gray-700 tw-shadow-lg'
