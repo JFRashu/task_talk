@@ -5,13 +5,14 @@ import NewTaskModal from '../CreateNewTask/NewTaskModal';
 import GroupInfoModal from '../GroupInfo/GroupInfoModal';
 import TaskHeader from '../SubComponents/TaskHeader';
 import TaskList from '../SubComponents/TaskList';
+import ChatHeader from '../SubComponents/ChatHeader';
 const Chatbox = () => {
     const [selectedChat, setSelectedChat] = useState(1);
     const [attachments, setAttachments] = useState([]);
     const [message, setMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isGroupInfoOpen, setIsGroupInfoOpen] = useState(false);
-  
+
 
     const [showAttachments, setShowAttachments] = useState(false);
     const groupData = {
@@ -105,7 +106,7 @@ const Chatbox = () => {
                 id: 2,
                 sender: "John Doe",
                 text: "Any critical findings we should address immediately?",
-                timestamp:1737605400000,
+                timestamp: 1737605400000,
                 type: "sent"
             },
             {
@@ -144,7 +145,7 @@ const Chatbox = () => {
             {
                 id: 3,
                 sender: "Sarah Chen",
-                timestamp:1737606400000,
+                timestamp: 1737606400000,
                 type: "received",
                 attachments: [
                     { type: 'file', name: 'api-specs.pdf', size: '1.2 MB' },
@@ -201,6 +202,20 @@ const Chatbox = () => {
         }))]);
     };
 
+    const convertTime =(message)=>{
+        const formattedTime = new Date(Number(message.timestamp)).toLocaleString("en-US", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true
+        });
+
+        return formattedTime;
+
+    };
 
     const getAllAttachments = () => {
         const currentChat = attachmentDummy[selectedChat] || [];
@@ -209,7 +224,7 @@ const Chatbox = () => {
                 return [...acc, ...message.attachments.map(attachment => ({
                     ...attachment,
                     sender: message.sender,
-                    timestamp: message.timestamp
+                    timestamp: convertTime(message)
                 }))];
             }
             return acc;
@@ -229,13 +244,13 @@ const Chatbox = () => {
             <div className="tw-flex tw-h-screen tw-bg-gray-100">
                 {/* Task list left side part */}
                 <div className="tw-w-1/3 tw-bg-teal-950 tw-border-r tw-border-gray-200 tw-overflow-y-auto tw-shadow-lg tw-relative">
-                <TaskHeader onGroupInfoOpen={() => setIsGroupInfoOpen(true)} />
-            <TaskList 
-                tasks={tasks}
-                selectedChat={selectedChat}
-                setSelectedChat={setSelectedChat}
-                getStatusIcon={getStatusIcon}
-            />
+                    <TaskHeader onGroupInfoOpen={() => setIsGroupInfoOpen(true)} />
+                    <TaskList
+                        tasks={tasks}
+                        selectedChat={selectedChat}
+                        setSelectedChat={setSelectedChat}
+                        getStatusIcon={getStatusIcon}
+                    />
 
                     {/* Floating Action Button */}
                     <button
@@ -265,91 +280,47 @@ const Chatbox = () => {
                 {/* Chat Area */}
                 <div className="tw-flex-1 tw-flex tw-flex-col tw-bg-gray-50">
                     {/* Chat Header */}
-                    <div className="tw-p-4 tw-bg-gray-800 tw-border-b tw-border-gray-200 tw-shadow-sm">
-                        <div className="tw-flex tw-items-center tw-justify-between">
-                            <div className="tw-flex tw-items-center tw-gap-3">
-                                <MessageSquare className="tw-w-6 tw-h-6 tw-text-blue-500" />
-                                <h2 className="tw-text-xl tw-font-bold tw-text-white">
-                                    {tasks.find(t => t.id === selectedChat)?.title}
-                                </h2>
-                            </div>
-                            <button
-                                onClick={() => setShowAttachments(!showAttachments)}
-                                className="tw-flex tw-items-center tw-gap-2 tw-px-4 tw-py-2 tw-text-blue-500 tw-font-medium tw-rounded-lg hover:tw-bg-blue-50 tw-transition-colors"
-                            >
-                                <Paperclip className="tw-w-4 tw-h-4" />
-                                Attachments
-                                {showAttachments ? (
-                                    <ChevronUp className="tw-w-4 tw-h-4" />
-                                ) : (
-                                    <ChevronDown className="tw-w-4 tw-h-4" />
-                                )}
-                            </button>
-                        </div>
-
-                        {showAttachments && (
-                            <div className="tw-absolute tw-right-4 tw-mt-2 tw-w-80 tw-bg-white tw-rounded-lg tw-shadow-xl tw-border tw-border-gray-200 tw-z-10">
-                                <div className="tw-p-4">
-                                    <h3 className="tw-text-lg tw-font-semibold tw-text-gray-800 tw-mb-4">All Attachments</h3>
-                                    <div className="tw-space-y-3 tw-max-h-96 tw-overflow-y-auto">
-                                        {getAllAttachments().map((attachment, index) => (
-                                            <div
-                                                key={index}
-                                                className="tw-flex tw-items-center tw-gap-3 tw-p-3 tw-rounded-lg tw-bg-gray-50 hover:tw-bg-gray-100 tw-transition-colors tw-cursor-pointer"
-                                                onClick={() => handleAttachmentClick(attachment)}
-                                            >
-                                                {attachment.type === 'image' ? (
-                                                    <Image className="tw-w-5 tw-h-5 tw-text-blue-500" />
-                                                ) : (
-                                                    <Paperclip className="tw-w-5 tw-h-5 tw-text-blue-500" />
-                                                )}
-                                                <div className="tw-flex-1">
-                                                    <div className="tw-text-sm tw-font-medium tw-text-gray-800">{attachment.name}</div>
-                                                    <div className="tw-text-xs tw-text-gray-500">
-                                                        {attachment.sender} • {attachment.timestamp}
-                                                    </div>
-                                                </div>
-                                                <span className="tw-text-xs tw-text-gray-400">{attachment.size}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    <ChatHeader 
+            tasks={tasks}
+            selectedChat={selectedChat}
+            showAttachments={showAttachments}
+            setShowAttachments={setShowAttachments}
+            getAllAttachments={getAllAttachments}
+            handleAttachmentClick={handleAttachmentClick}
+        />
 
                     {/* Messages Area */}
                     <div className="tw-flex-1 tw-overflow-y-auto tw-p-4 tw-space-y-4 tw-bg-black">
-                    {(() => {
-        // Combine chats and attachments
-        const combinedMessages = [
-            ...(chats[selectedChat] || []),
-            ...(attachmentDummy[selectedChat] || [])
-        ];
+                        {(() => {
+                            // Combine chats and attachments
+                            const combinedMessages = [
+                                ...(chats[selectedChat] || []),
+                                ...(attachmentDummy[selectedChat] || [])
+                            ];
 
-        // Sort messages by timestamp
-        const sortedMessages = combinedMessages.sort((a, b) => {
-            // Ensure timestamps are converted to numbers for comparison
-            return Number(a.timestamp) - Number(b.timestamp);
-        });
+                            // Sort messages by timestamp
+                            const sortedMessages = combinedMessages.sort((a, b) => {
+                                // Ensure timestamps are converted to numbers for comparison
+                                return Number(a.timestamp) - Number(b.timestamp);
+                            });
 
-        return sortedMessages.map((message) => {
-            // Format timestamp 
-            const formattedTime = new Date(Number(message.timestamp)).toLocaleString("en-US", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: true
-            });
+                            return sortedMessages.map((message) => {
+                                // Format timestamp 
+                                const formattedTime = new Date(Number(message.timestamp)).toLocaleString("en-US", {
+                                    year: "numeric",
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    second: "2-digit",
+                                    hour12: true
+                                });
 
-            return (
-                <div
-                    key={message.id || Math.random()}
-                    className={`tw-flex ${message.type === 'sent' ? 'tw-chat tw-chat-end' : 'tw-chat tw-chat-start'}`}
-                >
+                                return (
+                                    <div
+                                        key={message.id || Math.random()}
+                                        className={`tw-flex ${message.type === 'sent' ? 'tw-chat tw-chat-end' : 'tw-chat tw-chat-start'}`}
+                                    >
                                         <div
                                             className={`tw-max-w-[70%] tw-chat-bubble tw-p-4 ${message.type === 'sent' ? 'tw-bg-blue-600 tw-ml-auto' : 'tw-bg-orange-600 tw-mr-auto'
                                                 }`}
