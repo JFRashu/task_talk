@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
 import { MessageSquare, CheckCircle, Clock, AlertTriangle, Paperclip, Image, Send, MoreVertical, Plus, ChevronDown, ChevronUp, Info } from 'lucide-react';
-import NewTaskModal from '../CreateNewTask/NewTaskModal'
+import NewTaskModal from '../CreateNewTask/NewTaskModal';
 import GroupInfoModal from '../GroupInfo/GroupInfoModal';
+import TaskHeader from '../SubComponents/TaskHeader';
+import TaskList from '../SubComponents/TaskList';
 const Chatbox = () => {
     const [selectedChat, setSelectedChat] = useState(1);
     const [attachments, setAttachments] = useState([]);
@@ -225,33 +227,15 @@ const Chatbox = () => {
     return (
         <div className="tailwind-scope">
             <div className="tw-flex tw-h-screen tw-bg-gray-100">
-
+                {/* Task list left side part */}
                 <div className="tw-w-1/3 tw-bg-teal-950 tw-border-r tw-border-gray-200 tw-overflow-y-auto tw-shadow-lg tw-relative">
-                    <div className="tw-p-3 tw-border-b tw-border-gray-200 tw-bg-indigo-950 tw-flex tw-items-center tw-justify-between">
-                        <h2 className="tw-text-2xl tw-font-bold tw-text-white">Tasks</h2>
-                        <div className="tw-relative">
-                            <button onClick={() => setIsGroupInfoOpen(true)} className="tw-btn tw-btn-outline tw-btn-accent">Group Info</button>
-
-                        </div>
-                    </div>
-                    <div className="tw-divide-y tw-divide-gray-300">
-                        {tasks.map((task) => (
-                            <div
-                                key={task.id}
-                                onClick={() => setSelectedChat(task.id)}
-                                className={`tw-p-5 tw-shadow-md tw-transition-all tw-duration-300 tw-cursor-pointer
-                  ${selectedChat === task.id
-                                        ? 'tw-bg-black tw-text-white tw-border-l-4 tw-border-gray-700 tw-shadow-lg'
-                                        : 'tw-bg-slate-700 tw-text-white hover:tw-bg-gray-100 hover:tw-shadow-lg hover:tw-text-gray-950'
-                                    }`}
-                            >
-                                <div className="tw-flex tw-items-center tw-justify-between">
-                                    <h3 className="tw-font-semibold tw-text-lg">{task.title}</h3>
-                                    {getStatusIcon(task.status)}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                <TaskHeader onGroupInfoOpen={() => setIsGroupInfoOpen(true)} />
+            <TaskList 
+                tasks={tasks}
+                selectedChat={selectedChat}
+                setSelectedChat={setSelectedChat}
+                getStatusIcon={getStatusIcon}
+            />
 
                     {/* Floating Action Button */}
                     <button
