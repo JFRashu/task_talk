@@ -47,7 +47,6 @@ const GroupInfoModal = ({
                             </h3>
                             <div className="tw-text-gray-600">
                                 <p>Created: {groupData.createdDate}</p>
-                                <p>Active Projects: {groupData.activeProjects}</p>
                             </div>
                         </div>
 

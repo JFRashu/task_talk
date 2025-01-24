@@ -46,7 +46,7 @@ const MessageInput = ({
                               focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 
                               tw-justify-center tw-min-w-[60px]"
                 >
-                    <Send className="tw-w-10 tw-h-10 tw-transform tw-rotate-25" />
+                    <Send className="tw-w-6 tw-h-6 tw-transform tw-rotate-25" />
                 </button>
             </div>
         </div>

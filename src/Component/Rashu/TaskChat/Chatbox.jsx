@@ -10,6 +10,7 @@ import MessagesArea from '../SubComponents/MessagesArea';
 import MessageInput from '../SubComponents/MessageInput';
 
 const Chatbox = () => {
+    const [currentUser,setCurrentUser] = useState(1);
     const [selectedChat, setSelectedChat] = useState(1);
     const [attachments, setAttachments] = useState([]);
     const [message, setMessage] = useState('');
@@ -21,7 +22,6 @@ const Chatbox = () => {
     const groupData = {
         name: "Project Management Group",
         createdDate: "January 15, 2025",
-        activeProjects: 5,
         description: "Collaborative team focused on software development and project management tasks.",
         members: [
             { name: "Sarah Chen", role: "Admin" },
@@ -58,9 +58,9 @@ const Chatbox = () => {
         1: [
             {
                 id:1,
-                gid:1,
+                senderId:3,
                 tid:1,
-                sender: "Sarah Chen",
+                sender: "Ryan",
                 text: "I've started working on the API endpoints documentation",
                 timestamp: 1737605400000,
                 type: "received",
@@ -68,16 +68,16 @@ const Chatbox = () => {
             },
             {
                 id: 2,
-                gid:1,
+                senderId:2,
                 tid:1,
-                sender: "John Doe",
+                sender: "Jimmy",
                 text: "Great! Make sure to include authentication examples",
                 timestamp: 1737605400000,
                 type: "sent"
             },
             {
                 id: 3,
-                gid:1,
+                senderId:1,
                 tid:1,
                 sender: "Sarah Chen",
                 text: "Will do. Should we use Swagger for the interactive documentation?",
@@ -88,7 +88,7 @@ const Chatbox = () => {
         2: [
             {
                 id: 4,
-                gid:1,
+                senderId:2,
                 tid:2,
                 sender: "Mike Johnson",
                 text: "I've submitted the PR for the new feature",
@@ -97,9 +97,9 @@ const Chatbox = () => {
             },
             {
                 id: 5,
-                gid:1,
+                senderId:1,
                 tid:2,
-                sender: "John Doe",
+                sender: "Sarah Chen",
                 text: "Looking at it now. Initial feedback: we need more test coverage",
                 timestamp: 1737605500000,
                 type: "sent"
@@ -108,7 +108,7 @@ const Chatbox = () => {
         3: [
             {
                 id: 6,
-                gid:1,
+                senderId:3,
                 tid:3,
                 sender: "Lisa Wong",
                 text: "Security audit report is ready for review",
@@ -117,7 +117,7 @@ const Chatbox = () => {
             },
             {
                 id: 7,
-                gid:1,
+                senderId:2,
                 tid:3,
                 sender: "John Doe",
                 text: "Any critical findings we should address immediately?",
@@ -126,9 +126,9 @@ const Chatbox = () => {
             },
             {
                 id: 8,
-                gid:1,
+                senderId:1,
                 tid:3,
-                sender: "Lisa Wong",
+                sender: "Sarah Chen",
                 text: "Yes, found 2 high-priority vulnerabilities. Details in the report.",
                 timestamp: 1737605400000,
                 type: "received"
@@ -140,7 +140,7 @@ const Chatbox = () => {
         1: [
             {
                 id: 9,
-                gid:1,
+                senderId:1,
                 tid:3,
                 sender: "Sarah Chen",
                 timestamp: 1737605400000,
@@ -149,9 +149,9 @@ const Chatbox = () => {
             },
             {
                 id: 10,
-                gid:1,
+                senderId:1,
                 tid:3,
-                sender: "John Doe",
+                sender:  "Sarah Chen",
                 timestamp: 1737605202000,
                 type: "sent",
                 attachments: [
@@ -165,9 +165,9 @@ const Chatbox = () => {
             },
             {
                 id: 11,
-                gid:1,
+                senderId:2,
                 tid:3,
-                sender: "Sarah Chen",
+                sender: "John Doe",
                 timestamp: 1737606400000,
                 type: "received",
                 attachments: [
@@ -177,9 +177,9 @@ const Chatbox = () => {
             },
             {
                 id: 12,
-                gid:1,
+                senderId:2,
                 tid:3,
-                sender: "Sarah Chen",
+                sender: "John Doe",
                 timestamp: 1737615400000,
                 type: "received",
                 attachments: [
@@ -188,9 +188,9 @@ const Chatbox = () => {
             },
             {
                 id: 13,
-                gid:1,
+                senderId:3,
                 tid:3,
-                sender: "Ryan",
+                sender: 'Ryan',
                 timestamp: 1737615400000,
                 type: "received",
                 attachments: [
@@ -213,6 +213,7 @@ const Chatbox = () => {
 
 
     const getStatusIcon = (status) => {
+        setCurrentUser(1);
         switch (status) {
             case 'completed':
                 return <CheckCircle className="tw-w-4 tw-h-4 tw-text-green-500" />;
@@ -329,12 +330,13 @@ const Chatbox = () => {
                     {/* Messages Area */}
                     <MessagesArea
                         chats={chats}
-                       
+                        currentUser={currentUser}
                         selectedChat={selectedChat}
                    
                     />
                     {/* Message Input Area */}
                     <MessageInput
+                        
                         message={message}
                         setMessage={setMessage}
                         handleFileAttachment={handleFileAttachment}
