@@ -1,6 +1,6 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 
-import { CheckCircle, Clock, AlertTriangle,  Plus } from 'lucide-react';
+import { CheckCircle, Clock, AlertTriangle, Plus } from 'lucide-react';
 import NewTaskModal from '../CreateNewTask/NewTaskModal';
 import GroupInfoModal from '../GroupInfo/GroupInfoModal';
 import TaskHeader from '../SubComponents/TaskHeader';
@@ -8,16 +8,16 @@ import TaskList from '../SubComponents/TaskList';
 import ChatHeader from '../SubComponents/ChatHeader';
 import MessagesArea from '../SubComponents/MessagesArea';
 import MessageInput from '../SubComponents/MessageInput';
-
+import AddNewMember from '../Add New Member/AddNewMember';
 const Chatbox = () => {
-    const [currentUser,setCurrentUser] = useState(1);
+    const [currentUser, setCurrentUser] = useState(1);
     const [selectedChat, setSelectedChat] = useState(1);
     const [attachments, setAttachments] = useState([]);
     const [message, setMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isGroupInfoOpen, setIsGroupInfoOpen] = useState(false);
-
-
+    const [isAddMemberOpen, setAddMemberOpen] = useState(false);
+    const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
     const [showAttachments, setShowAttachments] = useState(false);
     const groupData = {
         name: "Project Management Group",
@@ -32,34 +32,34 @@ const Chatbox = () => {
     }
     const tasks = [
         {
-            gid:1,
+            gid: 1,
             id: 1,
             title: "Complete API Documentation",
             status: "in-progress",
-           
+
         },
         {
-            gid:1,
+            gid: 1,
             id: 2,
             title: "Review Pull Requests",
             status: "pending",
-           
+
         },
         {
-            gid:1,
+            gid: 1,
             id: 3,
             title: "Security Audit",
             status: "completed",
-            
+
         }
     ];
 
     const chats = {
         1: [
             {
-                id:1,
-                senderId:3,
-                tid:1,
+                id: 1,
+                senderId: 3,
+                tid: 1,
                 sender: "Ryan",
                 text: "I've started working on the API endpoints documentation",
                 timestamp: 1737605400000,
@@ -68,8 +68,8 @@ const Chatbox = () => {
             },
             {
                 id: 2,
-                senderId:2,
-                tid:1,
+                senderId: 2,
+                tid: 1,
                 sender: "Jimmy",
                 text: "Great! Make sure to include authentication examples",
                 timestamp: 1737605400000,
@@ -77,8 +77,8 @@ const Chatbox = () => {
             },
             {
                 id: 3,
-                senderId:1,
-                tid:1,
+                senderId: 1,
+                tid: 1,
                 sender: "Sarah Chen",
                 text: "Will do. Should we use Swagger for the interactive documentation?",
                 timestamp: 1737605400100,
@@ -88,8 +88,8 @@ const Chatbox = () => {
         2: [
             {
                 id: 4,
-                senderId:2,
-                tid:2,
+                senderId: 2,
+                tid: 2,
                 sender: "Mike Johnson",
                 text: "I've submitted the PR for the new feature",
                 timestamp: 1737605460000,
@@ -97,8 +97,8 @@ const Chatbox = () => {
             },
             {
                 id: 5,
-                senderId:1,
-                tid:2,
+                senderId: 1,
+                tid: 2,
                 sender: "Sarah Chen",
                 text: "Looking at it now. Initial feedback: we need more test coverage",
                 timestamp: 1737605500000,
@@ -108,8 +108,8 @@ const Chatbox = () => {
         3: [
             {
                 id: 6,
-                senderId:3,
-                tid:3,
+                senderId: 3,
+                tid: 3,
                 sender: "Lisa Wong",
                 text: "Security audit report is ready for review",
                 timestamp: 1737605400000,
@@ -117,8 +117,8 @@ const Chatbox = () => {
             },
             {
                 id: 7,
-                senderId:2,
-                tid:3,
+                senderId: 2,
+                tid: 3,
                 sender: "John Doe",
                 text: "Any critical findings we should address immediately?",
                 timestamp: 1737605400000,
@@ -126,8 +126,8 @@ const Chatbox = () => {
             },
             {
                 id: 8,
-                senderId:1,
-                tid:3,
+                senderId: 1,
+                tid: 3,
                 sender: "Sarah Chen",
                 text: "Yes, found 2 high-priority vulnerabilities. Details in the report.",
                 timestamp: 1737605400000,
@@ -140,8 +140,8 @@ const Chatbox = () => {
         1: [
             {
                 id: 9,
-                senderId:1,
-                tid:3,
+                senderId: 1,
+                tid: 3,
                 sender: "Sarah Chen",
                 timestamp: 1737605400000,
                 type: "received",
@@ -149,9 +149,9 @@ const Chatbox = () => {
             },
             {
                 id: 10,
-                senderId:1,
-                tid:3,
-                sender:  "Sarah Chen",
+                senderId: 1,
+                tid: 3,
+                sender: "Sarah Chen",
                 timestamp: 1737605202000,
                 type: "sent",
                 attachments: [
@@ -165,20 +165,20 @@ const Chatbox = () => {
             },
             {
                 id: 11,
-                senderId:2,
-                tid:3,
+                senderId: 2,
+                tid: 3,
                 sender: "John Doe",
                 timestamp: 1737606400000,
                 type: "received",
                 attachments: [
                     { type: 'file', name: 'api-specs.pdf', size: '1.2 MB' },
-                   
+
                 ]
             },
             {
                 id: 12,
-                senderId:2,
-                tid:3,
+                senderId: 2,
+                tid: 3,
                 sender: "John Doe",
                 timestamp: 1737615400000,
                 type: "received",
@@ -188,14 +188,14 @@ const Chatbox = () => {
             },
             {
                 id: 13,
-                senderId:3,
-                tid:3,
+                senderId: 3,
+                tid: 3,
                 sender: 'Ryan',
                 timestamp: 1737615400000,
                 type: "received",
                 attachments: [
-                    
-                     { type: 'file', name: 'api-specs.pdf', size: '1.2 MB', url: 'https://www.orimi.com/pdf-test.pdf' }
+
+                    { type: 'file', name: 'api-test.pdf', size: '1.2 MB', url: 'https://www.orimi.com/pdf-test.pdf' }
                 ]
             }
         ]
@@ -208,8 +208,12 @@ const Chatbox = () => {
         setMessage('')
     };
 
-
-
+    const handleAddMember = (newMember) => {
+        // Implement your member addition logic here
+        console.log('New member to be added:', newMember);
+        // Close the modal after adding
+        setIsAddMemberModalOpen(false);
+    };
 
 
     const getStatusIcon = (status) => {
@@ -282,42 +286,47 @@ const Chatbox = () => {
             <div className="tw-flex tw-h-screen tw-bg-gray-100">
                 {/* Task list left side part */}
                 <div className="tw-w-1/3 tw-bg-teal-950 tw-border-r tw-border-gray-200 tw-overflow-y-auto tw-shadow-lg tw-relative">
-                    <TaskHeader onGroupInfoOpen={() => setIsGroupInfoOpen(true)} />
+                    <TaskHeader
+                        onAddMemberOpen={() => setIsAddMemberModalOpen(true)}
+                        onGroupInfoOpen={() => setIsGroupInfoOpen(true)}
+                    />
                     <TaskList
                         tasks={tasks}
                         selectedChat={selectedChat}
                         setSelectedChat={setSelectedChat}
                         getStatusIcon={getStatusIcon}
                     />
-
+                    
                     {/* Floating Action Button */}
-                    <button 
+                    <button
                         onClick={() => setIsModalOpen(true)}
-                        className="tw-absolute tw-bottom-4 tw-right-4 tw-bg-indigo-300 tw-text-black tw-rounded-lg tw-p-4 tw-shadow-2xl hover:tw-bg-indigo-600 tw-transition-colors tw-z-40 hover:tw-text-white"
+                        className="tw-absolute tw-bottom-4 tw-right-4 tw-p-2 tw-rounded-lg tw-bg-white hover:tw-bg-blue-600 tw-transition-colors"
                     >
-                        <Plus className="tw-h-6 tw-w-6" />
-                    </button> 
-                    {/* New Task Modal */}
+                        <Plus className="tw-h-5 tw-w-5 tw-text-blue-600 hover:tw-text-white tw-transition-colors" />
+                    </button>
+
+                    {/* Modals */}
                     <NewTaskModal
                         isOpen={isModalOpen}
                         onClose={() => setIsModalOpen(false)}
                         onCreateTask={handleCreateTask}
                     />
-                    {/* Group Info Modal */}
+                    
                     <GroupInfoModal
                         isOpen={isGroupInfoOpen}
                         onClose={() => setIsGroupInfoOpen(false)}
                         groupData={groupData}
                     />
+                    
+                    <AddNewMember
+                        isOpen={isAddMemberModalOpen}
+                        onClose={() => setIsAddMemberModalOpen(false)}
+                        onAddMember={handleAddMember}
+                    />
                 </div>
-
-
-
-
 
                 {/* Chat Area */}
                 <div className="tw-flex-1 tw-flex tw-flex-col tw-bg-gray-50">
-                    {/* Chat Header */}
                     <ChatHeader
                         tasks={tasks}
                         selectedChat={selectedChat}
@@ -326,17 +335,14 @@ const Chatbox = () => {
                         getAllAttachments={getAllAttachments}
                         handleAttachmentClick={handleAttachmentClick}
                     />
-
-                    {/* Messages Area */}
+                    
                     <MessagesArea
                         chats={chats}
                         currentUser={currentUser}
                         selectedChat={selectedChat}
-                   
                     />
-                    {/* Message Input Area */}
+                    
                     <MessageInput
-                        
                         message={message}
                         setMessage={setMessage}
                         handleFileAttachment={handleFileAttachment}
@@ -344,7 +350,7 @@ const Chatbox = () => {
                     />
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 

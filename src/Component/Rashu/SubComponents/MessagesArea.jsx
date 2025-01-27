@@ -33,8 +33,8 @@ const MessagesArea = ({
                         <div
                             className={`tw-max-w-[70%] tw-chat-bubble tw-p-4 ${
                                 message.senderId == currentUser 
-                                    ? 'tw-bg-blue-600 tw-ml-auto' 
-                                    : 'tw-bg-orange-600 tw-mr-auto'
+                                    ? 'tw-bg-blue-700 tw-ml-auto' 
+                                    : 'tw-bg-orange-700 tw-mr-auto'
                             }`}
                         >
                             <div className="tw-font-medium tw-text-sm tw-mb-1 tw-text-white">

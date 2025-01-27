@@ -43,7 +43,7 @@ const GroupInfoModal = ({
 
                         <div>
                             <h3 className="tw-font-semibold tw-text-gray-700 tw-flex tw-items-center tw-gap-2">
-                                <Calendar className="tw-h-5 tw-w-5" /> Group Details
+                                <Calendar className="tw-h-5 tw-w-5" /> Dashboard Details
                             </h3>
                             <div className="tw-text-gray-600">
                                 <p>Created: {groupData.createdDate}</p>
