@@ -83,7 +83,7 @@ const Chatbox = () => {
                 tid: 1,
                 sender: "Sarah Chen",
                 text: "Will do. Should we use Swagger for the interactive documentation?",
-                timestamp: 1737605400100,
+                timestamp: 1737605500100,
                 type: "received"
             }
         ],
