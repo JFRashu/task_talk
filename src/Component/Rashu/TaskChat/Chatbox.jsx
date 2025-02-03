@@ -9,6 +9,8 @@ import ChatHeader from '../SubComponents/ChatHeader';
 import MessagesArea from '../SubComponents/MessagesArea';
 import MessageInput from '../SubComponents/MessageInput';
 import AddNewMember from '../Add New Member/AddNewMember';
+import '../rashu-styles.css';
+
 const Chatbox = () => {
     const [currentUser, setCurrentUser] = useState(1);
     const [selectedChat, setSelectedChat] = useState(1);
