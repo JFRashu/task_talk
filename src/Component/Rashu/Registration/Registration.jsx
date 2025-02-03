@@ -71,7 +71,7 @@ const Registration = () => {
                         <input
                           type="text"
                           placeholder="johndoe"
-                          className="w-full text-white box-border pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/50 focus:bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                          className="w-full  box-border pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/50 focus:bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                           value={username}
                           onChange={(e) => setUsername(e.target.value)}
                           required
