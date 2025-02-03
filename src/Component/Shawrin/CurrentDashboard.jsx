@@ -9,19 +9,24 @@ export const CurrentDashboard = () => {
   );
 
   return (
-    <div className='tailwind-scope'>
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">Connected Dashboards</h2>
-      {connectedDashboards.length === 0 ? (
+    
+  //<div className="tailwind-scope">
+
+         <div className=" space-y-6">
+       <h2 className="text-3xl font-bold text-white">Connected Dashboards</h2>
+       {/* {connectedDashboards.length === 0 ? ( */}
         <p className="text-gray-500">You are not connected to any dashboards yet.</p>
-      ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {connectedDashboards.map(dashboard => (
-            <DashboardCard key={dashboard.id} dashboard={dashboard} />
-          ))}
-        </div>
-      )}
-    </div>
-    </div>
+       {/* ) : (
+        <div className="grid grid-cols-1 gap-6 stw-m:grid-cols-2 tw-lg:grid-cols-3">
+          {connectedDashboards.map(dashboard => ( */}
+             {/* <DashboardCard key={dashboard.id} dashboard={dashboard} />
+         ))} */}
+         </div>
+      // )}
+    //</div>
+
+ // </div>
+
+   
   );
 };

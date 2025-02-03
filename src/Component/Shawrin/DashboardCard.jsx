@@ -42,8 +42,7 @@ export const DashboardCard = ({ dashboard }) => {
   };
 
   return (
-    <div className='tailwind-scope'>
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="bg-blue-300 rounded-lg shadow-lg overflow-hidden">
       <div className="p-6">
         <h3 className="text-xl font-bold text-gray-900 mb-2">{dashboard.name}</h3>
         <p className="text-gray-600 mb-4">{dashboard.description}</p>
@@ -133,14 +132,14 @@ export const DashboardCard = ({ dashboard }) => {
             {dashboard.members.map(member => (
               <div key={member.id} className="flex items-center space-x-2 text-sm text-gray-600">
                 <span>{member.name}</span>
-                <span className="text-gray-400">({member.email})</span>
+                <span className="text-gray-700">({member.email})</span>
               </div>
             ))}
           </div>
         </div>
 
         <form onSubmit={handleAddMember} className="mb-6">
-          <h4 className="font-semibold text-gray-700 mb-2">Add Member</h4>
+          <h4 className="font-semibold text-gray-900 mb-2">Add Member</h4>
           <div className="space-y-2">
             <input
               type="text"
@@ -204,7 +203,6 @@ export const DashboardCard = ({ dashboard }) => {
           </div>
         )}
       </div>
-    </div>
     </div>
   );
 };
