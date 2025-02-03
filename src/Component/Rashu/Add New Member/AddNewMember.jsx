@@ -40,20 +40,20 @@ const AddNewMember = ({ isOpen, onClose, onAddMember }) => {
     };
 
     return (
-        <div className="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-center tw-justify-center tw-bg-black tw-bg-opacity-50">
-            <div className="tw-p-6 tw-bg-white tw-rounded-lg tw-shadow-md tw-relative tw-w-96">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="p-6 bg-white rounded-lg shadow-md relative w-96">
                 <button
                     onClick={onClose}
-                    className="tw-absolute tw-top-4 tw-right-4 tw-text-gray-500 hover:tw-text-gray-800"
+                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
                 >
-                    <X className="tw-h-6 tw-w-6" />
+                    <X className="h-6 w-6" />
                 </button>
 
-                <h2 className="tw-text-2xl tw-font-bold tw-mb-6 tw-text-gray-800">Add New Member</h2>
+                <h2 className="text-2xl font-bold mb-6 text-gray-800">Add New Member</h2>
                 
-                <form onSubmit={handleSubmit} className="tw-space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="tw-block tw-text-sm tw-font-medium tw-text-gray-400">Name</label>
+                        <label className="block text-sm font-medium text-gray-400">Name</label>
                         <input
                             type="text"
                             name="name"
@@ -61,12 +61,12 @@ const AddNewMember = ({ isOpen, onClose, onAddMember }) => {
                             onChange={handleInputChange}
                             required
                             placeholder="Enter member's full name"
-                            className="tw-mt-1 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-p-2"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                         />
                     </div>
                     
                     <div>
-                        <label className="tw-block tw-text-sm tw-font-medium tw-text-gray-400">Email</label>
+                        <label className="block text-sm font-medium text-gray-400">Email</label>
                         <input
                             type="email"
                             name="email"
@@ -74,17 +74,17 @@ const AddNewMember = ({ isOpen, onClose, onAddMember }) => {
                             onChange={handleInputChange}
                             required
                             placeholder="Enter member's email"
-                            className="tw-mt-1 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-p-2"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                         />
                     </div>
                     
                     <div>
-                        <label className="tw-block tw-text-sm tw-font-medium tw-text-gray-400">Role</label>
+                        <label className="block text-sm font-medium text-gray-400">Role</label>
                         <select
                             name="role"
                             value={newMember.role}
                             onChange={handleInputChange}
-                            className="tw-mt-1 tw-ml-2 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-p-2"
+                            className="mt-1 ml-2 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                         >
                             <option value="member">Member</option>
                             <option value="admin">Admin</option>
@@ -94,7 +94,7 @@ const AddNewMember = ({ isOpen, onClose, onAddMember }) => {
                     
                     <button
                         type="submit"
-                        className="tw-w-full tw-bg-indigo-600 tw-text-white tw-py-2 tw-rounded-md hover:tw-bg-indigo-700 tw-transition-colors"
+                        className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition-colors"
                     >
                         Add Member
                     </button>

@@ -222,11 +222,11 @@ const Chatbox = () => {
         setCurrentUser(1);
         switch (status) {
             case 'completed':
-                return <CheckCircle className="tw-w-4 tw-h-4 tw-text-green-500" />;
+                return <CheckCircle className="w-4 h-4 text-green-500" />;
             case 'in-progress':
-                return <Clock className="tw-w-4 tw-h-4 tw-text-blue-500" />;
+                return <Clock className="w-4 h-4 text-blue-500" />;
             case 'pending':
-                return <AlertTriangle className="tw-w-4 tw-h-4 tw-text-yellow-500" />;
+                return <AlertTriangle className="w-4 h-4 text-yellow-500" />;
             default:
                 return null;
         }
@@ -285,9 +285,9 @@ const Chatbox = () => {
 
     return (
         <div className="tailwind-scope">
-            <div className="tw-flex tw-h-screen tw-bg-gray-100">
+            <div className="flex h-screen bg-gray-100">
                 {/* Task list left side part */}
-                <div className="tw-w-1/3 tw-bg-teal-950 tw-border-r tw-border-gray-200 tw-overflow-y-auto tw-shadow-lg tw-relative">
+                <div className="w-1/3 bg-teal-950 border-r border-gray-200 overflow-y-auto shadow-lg relative">
                     <TaskHeader
                         onAddMemberOpen={() => setIsAddMemberModalOpen(true)}
                         onGroupInfoOpen={() => setIsGroupInfoOpen(true)}
@@ -302,9 +302,9 @@ const Chatbox = () => {
                     {/* Floating Action Button */}
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="tw-absolute tw-bottom-4 tw-right-4 tw-p-2 tw-rounded-lg tw-bg-white hover:tw-bg-blue-600 tw-transition-colors"
+                        className="absolute bottom-4 right-4 p-2 rounded-lg bg-white hover:bg-blue-600 transition-colors"
                     >
-                        <Plus className="tw-h-5 tw-w-5 tw-text-blue-600 hover:tw-text-white tw-transition-colors" />
+                        <Plus className="h-5 w-5 text-blue-600 hover:text-white transition-colors" />
                     </button>
 
                     {/* Modals */}
@@ -328,7 +328,7 @@ const Chatbox = () => {
                 </div>
 
                 {/* Chat Area */}
-                <div className="tw-flex-1 tw-flex tw-flex-col tw-bg-gray-50">
+                <div className="flex-1 flex flex-col bg-gray-50">
                     <ChatHeader
                         tasks={tasks}
                         selectedChat={selectedChat}

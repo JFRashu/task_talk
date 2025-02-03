@@ -17,19 +17,19 @@ const TaskList = ({
     };
 
     return (
-        <div className="tw-divide-y tw-divide-gray-300">
+        <div className="divide-y divide-gray-300">
             {tasks.map((task) => (
                 <div
                     key={task.id}
                     onClick={() => handleTaskSelect(task.id)}
-                    className={`tw-p-5  tw-shadow-md tw-transition-all tw-duration-300 tw-cursor-pointer ${
+                    className={`p-5  shadow-md transition-all duration-300 cursor-pointer ${
                         selectedChat === task.id
-                            ? 'tw-bg-black tw-text-white tw-border-l-4 tw-border-gray-700 tw-shadow-lg'
-                            : 'tw-bg-slate-700 tw-text-white hover:tw-bg-gray-100 hover:tw-shadow-lg hover:tw-text-gray-950'
+                            ? 'bg-black text-white border-l-4 border-gray-700 shadow-lg'
+                            : 'bg-slate-700 text-white hover:bg-gray-100 hover:shadow-lg hover:text-gray-950'
                     }`}
                 >
-                    <div className="tw-flex tw-items-center tw-justify-between">
-                        <h3 className=" tw-text-base">{task.title}</h3>
+                    <div className="flex items-center justify-between">
+                        <h3 className=" text-base">{task.title}</h3>
                         {getStatusIcon(task.status)}
                     </div>
                 </div>

@@ -3,25 +3,25 @@ import { UserPlus, LayoutDashboard } from 'lucide-react';
 
 const TaskHeader = ({ onGroupInfoOpen, onAddMemberOpen }) => {
     return (
-        <div className="tw-p-3 tw-border-b tw-border-gray-200 tw-bg-indigo-950 tw-flex tw-items-center tw-justify-between">
-            <h2 className="tw-text-2xl tw-font-bold tw-text-white">Tasks</h2>
-            <div className="tw-flex tw-gap-3">
-                <div className="tw-relative tw-group">
+        <div className="p-3 border-b border-gray-200 bg-indigo-950 flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-white">Tasks</h2>
+            <div className="flex gap-3">
+                <div className="relative group">
                     <button
                         onClick={onAddMemberOpen}
-                        className="tw-p-2 tw-rounded-lg tw-text-white hover:tw-bg-indigo-800 tw-transition-colors"
+                        className="p-2 rounded-lg text-white hover:bg-indigo-800 transition-colors"
                     >
-                        <UserPlus className="tw-h-5 tw-w-5 tw-text-blue-600 hover:tw-text-white tw-transition-colors" />
+                        <UserPlus className="h-5 w-5 text-blue-600 hover:text-white transition-colors" />
                     </button>
 
                 </div>
-                <div className="tw-relative tw-group">
+                <div className="relative group">
                     <button
                         onClick={onGroupInfoOpen}
-                        className="tw-p-2 tw-rounded-lg tw-bg-white hover:tw-bg-blue-600 tw-transition-colors"
+                        className="p-2 rounded-lg bg-white hover:bg-blue-600 transition-colors"
                     >
                         <LayoutDashboard
-                            className="tw-h-5 tw-w-5 tw-text-blue-600 hover:tw-text-white tw-transition-colors"
+                            className="h-5 w-5 text-blue-600 hover:text-white transition-colors"
                         />
                     </button>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDashboard } from '../context/DashboardContext';
+import { useDashboard } from '../../context/DashboardContext';
 import { Plus } from 'lucide-react';
 
 export const CreateDashboard = () => {
@@ -18,6 +18,7 @@ export const CreateDashboard = () => {
   };
 
   return (
+    <div className='tailwind-scope'>
     <div className="bg-black rounded-lg shadow p-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Create Your Dashboard</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -55,6 +56,7 @@ export const CreateDashboard = () => {
           Create Dashboardsssss
         </button>
       </form>
+    </div>
     </div>
   );
 };

@@ -8,45 +8,45 @@ const MessageInput = ({
     handleSendMessage 
 }) => {
     return (
-        <div className="tw-p-0 tw-bg-gray-800">
-            <div className="tw-flex tw-bg-transparent tw-gap-2">
-                <div className="tw-flex-1 tw-flex tw-items-center tw-gap-2 tw-bg-gray-800 tw-rounded-lg tw-px-2 tw-py-2">
+        <div className="p-0 bg-gray-800">
+            <div className="flex bg-transparent gap-2">
+                <div className="flex-1 flex items-center gap-2 bg-gray-800 rounded-lg px-2 py-2">
                     <input
                         type="text"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Type your message..."
-                        className="tw-input tw-input-bordered tw-input-info tw-text-gray-50 tw-flex-1 tw-bg-transparent focus:tw-outline"
+                        className="input input-bordered input-info text-gray-50 flex-1 bg-transparent focus:outline"
                     />
-                    <div className="tw-flex tw-items-center tw-gap-2">
-                        <label className="tw-cursor-pointer tw-text-gray-400 hover:tw-text-blue-500 tw-transition-colors">
+                    <div className="flex items-center gap-2">
+                        <label className="cursor-pointer text-gray-400 hover:text-blue-500 transition-colors">
                             <input
                                 type="file"
                                 multiple
                                 onChange={handleFileAttachment}
-                                className="tw-hidden"
+                                className="hidden"
                             />
-                            <Paperclip className="tw-w-5 tw-h-5" />
+                            <Paperclip className="w-5 h-5" />
                         </label>
-                        <label className="tw-cursor-pointer tw-text-gray-400 hover:tw-text-blue-500 tw-transition-colors">
+                        <label className="cursor-pointer text-gray-400 hover:text-blue-500 transition-colors">
                             <input
                                 type="file"
                                 accept="image/*"
                                 multiple
                                 onChange={handleFileAttachment}
-                                className="tw-hidden"
+                                className="hidden"
                             />
-                            <Image className="tw-w-5 tw-h-5" />
+                            <Image className="w-5 h-5" />
                         </label>
                     </div>
                 </div>
                 <button 
                     onClick={handleSendMessage}
-                    className="tw-p-0 tw-bg-transparent tw-text-white tw-rounded-lg hover:tw-bg-gray-800 
-                              focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 
-                              tw-justify-center tw-min-w-[60px]"
+                    className="p-0 bg-transparent text-white rounded-lg hover:bg-gray-800 
+                              focus:outline-none focus:ring-2 focus:ring-blue-500 
+                              justify-center min-w-[60px]"
                 >
-                    <Send className="tw-w-6 tw-h-6 tw-transform tw-rotate-25" />
+                    <Send className="w-6 h-6 transform rotate-25" />
                 </button>
             </div>
         </div>

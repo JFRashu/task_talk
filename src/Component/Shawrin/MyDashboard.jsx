@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDashboard } from '../context/DashboardContext';
+import { useDashboard } from '../../context/DashboardContext';
 import { DashboardCard } from './DashboardCard';
 
 export const MyDashboard = () => {
@@ -7,6 +7,7 @@ export const MyDashboard = () => {
   const myDashboards = dashboards.filter(dashboard => dashboard.creator.id === currentUser.id);
 
   return (
+    <div className='tailwind-scope'>
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-900">My Dashboards</h2>
       {myDashboards.length === 0 ? (
@@ -18,6 +19,7 @@ export const MyDashboard = () => {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 };

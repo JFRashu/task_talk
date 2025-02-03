@@ -49,64 +49,64 @@ const NewTaskModal = ({ isOpen, onClose, onCreateTask }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="tailwind-scope">
-      <div className="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-center tw-justify-center tw-bg-black tw-bg-opacity-50">
-        <div className="tw-bg-white tw-w-96 tw-p-6 tw-rounded-xl tw-shadow-2xl tw-relative tw-transform tw-transition-all tw-duration-300 tw-scale-100">
+    
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="bg-white w-96 p-6 rounded-xl shadow-2xl relative transform transition-all duration-300 scale-100">
           <button
             onClick={onClose}
-            className="tw-absolute tw-top-4 tw-right-4 tw-text-gray-500 hover:tw-text-gray-800"
+            className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
           >
-            <X className="tw-h-6 tw-w-6" />
+            <X className="h-6 w-6" />
           </button>
-          <h2 className="tw-text-2xl tw-font-bold tw-mb-6 tw-text-gray-800">Create New Task</h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Create New Task</h2>
           
-          <form onSubmit={handleSubmit} className="tw-space-y-4 tw-rounded-md">
+          <form onSubmit={handleSubmit} className="space-y-4 rounded-md">
             <div>
-              <label className="tw-block tw-text-sm tw-font-medium tw-text-gray-200">Title</label>
+              <label className="block text-sm font-medium text-gray-200">Title</label>
               <input
                 type="text"
                 name="title"
                 value={newTask.title}
                 onChange={handleInputChange}
                 required
-                className="tw-mt-1 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               />
             </div>
             
             <div>
-              <label className="tw-block tw-text-sm tw-font-medium tw-text-gray-200">Description</label>
+              <label className="block text-sm font-medium text-gray-200">Description</label>
               <textarea
                 name="description"
                 value={newTask.description}
                 onChange={handleInputChange}
-                className="tw-mt-1 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               />
             </div>
             
             <div>
-              <label className="tw-block tw-text-sm tw-font-medium tw-text-gray-200">Due Date and Time</label>
+              <label className="block text-sm font-medium text-gray-200">Due Date and Time</label>
               <input
                 type="datetime-local"
                 name="dueDateTime"
                 value={newTask.dueDateTime}
                 onChange={handleInputChange}
-                className="tw-mt-1 tw-block tw-w-full tw-border tw-border-gray-300 tw-rounded-md tw-shadow-sm tw-p-2"
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               />
               {error && (
-                <p className="tw-text-red-500 tw-text-sm tw-mt-1">{error}</p>
+                <p className="text-red-500 text-sm mt-1">{error}</p>
               )}
             </div>
             
             <button
               type="submit"
-              className="tw-w-full tw-bg-indigo-600 tw-text-white tw-py-2 tw-rounded-md tw-hover:bg-indigo-700 tw-transition-colors"
+              className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition-colors"
             >
               Create Task
             </button>
           </form>
         </div>
       </div>
-    </div>
+    
   );
 };
 

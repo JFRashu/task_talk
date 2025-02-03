@@ -13,7 +13,7 @@ const MessagesArea = ({
     ].sort((a, b) => Number(a.timestamp) - Number(b.timestamp));
 
     return (
-        <div className="tw-flex-1 tw-overflow-y-auto tw-p-4 tw-space-y-4 tw-bg-black">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-black">
             {combinedMessages.map((message) => {
                 const formattedTime = new Date(Number(message.timestamp)).toLocaleString("en-US", {
                     year: "numeric",
@@ -28,31 +28,31 @@ const MessagesArea = ({
                 return (
                     <div
                         key={message.id || Math.random()}
-                        className={`tw-flex ${message.senderId == currentUser  ? 'tw-chat tw-chat-end' : 'tw-chat tw-chat-start'}`}
+                        className={`flex ${message.senderId == currentUser  ? 'chat chat-end' : 'chat chat-start'}`}
                     >
                         <div
-                            className={`tw-max-w-[70%] tw-chat-bubble tw-p-4 ${
+                            className={`max-w-[70%] chat-bubble p-4 ${
                                 message.senderId == currentUser 
-                                    ? 'tw-bg-blue-700 tw-ml-auto' 
-                                    : 'tw-bg-orange-700 tw-mr-auto'
+                                    ? 'bg-blue-700 ml-auto' 
+                                    : 'bg-orange-700 mr-auto'
                             }`}
                         >
-                            <div className="tw-font-medium tw-text-sm tw-mb-1 tw-text-white">
+                            <div className="font-medium text-sm mb-1 text-white">
                                 {message.sender}
                             </div>
 
                             {message.text && (
-                                <div className="tw-text-sm tw-text-white">
+                                <div className="text-sm text-white">
                                     {message.text}
                                 </div>
                             )}
 
                             
 
-                            <div className={`tw-text-xs tw-mt-2 ${
+                            <div className={`text-xs mt-2 ${
                                 message.senderId == currentUser 
-                                    ? 'tw-text-blue-200' 
-                                    : 'tw-text-orange-200'
+                                    ? 'text-blue-200' 
+                                    : 'text-orange-200'
                             }`}>
                                 {formattedTime}
                             </div>

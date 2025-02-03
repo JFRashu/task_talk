@@ -9,31 +9,31 @@ const GroupInfoModal = ({
     if (!isOpen) return null;
 
     return (
-        <div className="tailwind-scope">
-            <div className="tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-50 tw-z-50 tw-flex tw-items-center tw-justify-center">
-                <div className="tw-bg-white tw-w-[450px] tw-p-6 tw-rounded-xl tw-shadow-2xl tw-relative">
+       
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+                <div className="bg-white w-[450px] p-6 rounded-xl shadow-2xl relative">
                     <button
                         onClick={onClose}
-                        className="tw-absolute tw-top-4 tw-right-4 tw-text-gray-500 hover:tw-text-gray-800"
+                        className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
                     >
-                        <X className="tw-h-6 tw-w-6" />
+                        <X className="h-6 w-6" />
                     </button>
 
-                    <h2 className="tw-text-2xl tw-font-bold tw-mb-4">{groupData.name}</h2>
+                    <h2 className="text-2xl font-bold mb-4">{groupData.name}</h2>
 
-                    <div className="tw-space-y-4">
+                    <div className="space-y-4">
                         <div>
-                            <h3 className="tw-font-semibold tw-text-gray-700 tw-flex tw-items-center tw-gap-2">
-                                <Users className="tw-h-5 tw-w-5" /> Members
+                            <h3 className="font-semibold text-gray-700 flex items-center gap-2">
+                                <Users className="h-5 w-5" /> Members
                             </h3>
-                            <ul className="tw-list-none tw-pl-0 tw-space-y-1">
+                            <ul className="list-none pl-0 space-y-1">
                                 {groupData.members.map((member, index) => (
                                     <li
                                         key={index}
-                                        className="tw-flex tw-justify-between tw-text-gray-600"
+                                        className="flex justify-between text-gray-600"
                                     >
                                         {member.name}
-                                        <span className="tw-text-xs tw-text-gray-500">
+                                        <span className="text-xs text-gray-500">
                                             {member.role}
                                         </span>
                                     </li>
@@ -42,26 +42,26 @@ const GroupInfoModal = ({
                         </div>
 
                         <div>
-                            <h3 className="tw-font-semibold tw-text-gray-700 tw-flex tw-items-center tw-gap-2">
-                                <Calendar className="tw-h-5 tw-w-5" /> Dashboard Details
+                            <h3 className="font-semibold text-gray-700 flex items-center gap-2">
+                                <Calendar className="h-5 w-5" /> Dashboard Details
                             </h3>
-                            <div className="tw-text-gray-600">
+                            <div className="text-gray-600">
                                 <p>Created: {groupData.createdDate}</p>
                             </div>
                         </div>
 
                         <div>
-                            <h3 className="tw-font-semibold tw-text-gray-700 tw-flex tw-items-center tw-gap-2">
-                                <Folder className="tw-h-5 tw-w-5" /> Description
+                            <h3 className="font-semibold text-gray-700 flex items-center gap-2">
+                                <Folder className="h-5 w-5" /> Description
                             </h3>
-                            <p className="tw-text-gray-600">
+                            <p className="text-gray-600">
                                 {groupData.description}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+       
     );
 };
 

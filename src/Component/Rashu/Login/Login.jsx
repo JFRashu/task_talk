@@ -22,42 +22,42 @@ const Login = () => {
 
   return (
     <div className="loginbody">
-      <div className="tailwind-scope">
-        <div className="tw-min-h-screen tw-flex tw-items-center tw-justify-center tw-p-4  tw-bg-transparent">
-          <div className="tw-w-full tw-max-w-md">
+      
+        <div className="min-h-screen flex items-center justify-center p-4  bg-transparent">
+          <div className="w-full max-w-md">
             {/* Profile Icon Circle */}
-            <div className="tw-flex tw-justify-center">
-              <div className="tw-w-20 tw-h-20 tw-bg-white tw-rounded-full tw-flex tw-items-center tw-justify-center tw-shadow-lg tw-mb-2 tw-border-4 tw-border-blue-500">
-                <User className="tw-w-10 tw-h-10 tw-text-blue-500" />
+            <div className="flex justify-center">
+              <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-2 border-4 border-blue-500">
+                <User className="w-10 h-10 text-blue-500" />
               </div>
             </div>
 
             {/* Main Card */}
-            <div className="tw-bg-white/80 tw-backdrop-blur-sm tw-rounded-2xl tw-shadow-xl tw-border tw-border-white">
-              <div className="tw-p-8 tw-space-y-7">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white">
+              <div className="p-8 space-y-7">
                 {/* Header */}
-                <div className="tw-text-center tw-space-y-2">
-                  <h2 className="tw-text-3xl tw-font-bold tw-bg-clip-text tw-text-transparent tw-bg-gradient-to-r tw-from-blue-600 tw-to-purple-600">
+                <div className="text-center space-y-2">
+                  <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
                     Welcome Back
                   </h2>
-                  <p className="tw-text-gray-500">Please sign in to your account</p>
+                  <p className="text-gray-500">Please sign in to your account</p>
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="tw-space-y-6 tw-rounded-md">
-                  <div className="tw-space-y-2">
-                    <label className="tw-block tw-text-sm tw-font-medium tw-text-white">
+                <form onSubmit={handleSubmit} className="space-y-6 rounded-md">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-white">
                       Username
                     </label>
-                    <div className="tw-relative tw-group">
-                      <div className="tw-absolute tw-inset-y-0 tw-left-3 tw-flex tw-items-center tw-pl-3">
-                        <User className="tw-h-5 tw-w-5  tw-text-white group-focus-within:tw-text-blue-500 tw-transition-colors" />
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-3 flex items-center pl-3">
+                        <User className="h-5 w-5  text-white group-focus-within:text-blue-500 transition-colors" />
                       </div>
-                      <div className="tw-relative tw-group tw-w-full">
+                      <div className="relative group w-full">
                         <input
                           type="text"
                           placeholder="johndoe"
-                          className="tw-w-full tw-box-border tw-pl-10 tw-pr-4 tw-py-3 tw-border tw-border-gray-200 tw-rounded-xl tw-bg-white/50 focus:tw-bg-white tw-shadow-sm focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 tw-transition-all"
+                          className="w-full box-border pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/50 focus:bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                           value={username}
                           onChange={(e) => setUsername(e.target.value)}
                           required
@@ -67,31 +67,31 @@ const Login = () => {
                     </div>
                   </div>
                   {/* Password Input */}
-                  <div className="tw-space-y-2">
-                    <label className="tw-block tw-text-sm tw-font-medium tw-text-white">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-white">
                       Password
                     </label>
-                    <div className="tw-relative tw-group">
-                      <div className="tw-absolute tw-inset-y-0 tw-left-3 tw-flex tw-items-center tw-pl-3">
-                        <Lock className="tw-h-5 tw-w-5 tw-text-white group-focus-within:tw-text-blue-500 tw-transition-colors" />
+                    <div className="relative group">
+                      <div className="absolute inset-y-0 left-3 flex items-center pl-3">
+                        <Lock className="h-5 w-5 text-white group-focus-within:text-blue-500 transition-colors" />
                       </div>
-                      <div className="tw-relative tw-group tw-w-full">
+                      <div className="relative group w-full">
                         <input
                           type={showPassword ? 'text' : 'password'} // Toggle password visibility based on state
                           placeholder="••••••••"
-                          className="tw-w-full tw-box-border tw-pl-10 tw-pr-4 tw-py-3 tw-border tw-border-gray-200 tw-rounded-xl tw-bg-white/50 focus:tw-bg-white tw-shadow-sm focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-blue-500 tw-transition-all"
+                          className="w-full box-border pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/50 focus:bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           required
                         />
                         <div
-                          className="tw-absolute tw-inset-y-0 tw-right-3 tw-flex tw-items-center cursor-pointer"
+                          className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                           onClick={togglePasswordVisibility} // Toggle password visibility on click
                         >
                           {showPassword ? (
-                            <Eye className="tw-h-5 tw-w-5 tw-text-gray-600" />
+                            <Eye className="h-5 w-5 text-gray-600" />
                           ) : (
-                            <EyeOff className="tw-h-5 tw-w-5 tw-text-gray-600" />
+                            <EyeOff className="h-5 w-5 text-gray-600" />
                           )}
                         </div>
                       </div>
@@ -100,15 +100,15 @@ const Login = () => {
 
 
                   {/* Remember Me & Forgot Password
-                <div className="tw-flex tw-items-center tw-justify-between">
-                  <label className="tw-flex tw-items-center">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center">
                     <input
                       type="checkbox"
-                      className="tw-h-4 tw-w-4 tw-rounded tw-border-gray-300 tw-text-blue-500 focus:tw-ring-blue-500 tw-transition-colors"
+                      className="h-4 w-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500 transition-colors"
                     />
-                    <span className="tw-ml-2 tw-text-sm tw-text-gray-600">Remember me</span>
+                    <span className="ml-2 text-sm text-gray-600">Remember me</span>
                   </label>
-                  <a href="#" className="tw-text-sm tw-font-medium tw-text-blue-500 hover:tw-text-blue-600 tw-transition-colors">
+                  <a href="#" className="text-sm font-medium text-blue-500 hover:text-blue-600 transition-colors">
                     Forgot password?
                   </a>
                 </div> */}
@@ -116,16 +116,16 @@ const Login = () => {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="tw-w-full tw-bg-gradient-to-r tw-from-blue-500 tw-to-blue-600 hover:tw-from-blue-600 hover:tw-to-blue-700 tw-text-white tw-px-6 tw-py-3 tw-rounded-xl tw-flex tw-items-center tw-justify-center tw-gap-2 tw-font-medium tw-shadow-lg hover:tw-shadow-xl tw-transform hover:tw-scale-[1.02] tw-transition-all"
+                    className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2 font-medium shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all"
                   >
                     Sign in
-                    <ArrowRight className="tw-h-5 tw-w-5" />
+                    <ArrowRight className="h-5 w-5" />
                   </button>
 
                   {/* Sign up link */}
-                  <div className="tw-text-center tw-text-sm tw-text-gray-600">
+                  <div className="text-center text-sm text-gray-600">
                     Don't have an account?{' '}
-                    <a onClick={() => navigate('/registration')} className="tw-font-medium tw-text-blue-500  hover:tw-text-blue-600 tw-transition-colors tw-cursor-pointer">
+                    <a onClick={() => navigate('/registration')} className="font-medium text-blue-500  hover:text-blue-600 transition-colors cursor-pointer">
                       Create an account
                     </a>
                   </div>
@@ -135,7 +135,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
+
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDashboard } from '../context/DashboardContext';
+import { useDashboard } from '../../context/DashboardContext';
 import { 
   CheckCircle, 
   XCircle, 
@@ -42,6 +42,7 @@ export const DashboardCard = ({ dashboard }) => {
   };
 
   return (
+    <div className='tailwind-scope'>
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
       <div className="p-6">
         <h3 className="text-xl font-bold text-gray-900 mb-2">{dashboard.name}</h3>
@@ -203,6 +204,7 @@ export const DashboardCard = ({ dashboard }) => {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 };

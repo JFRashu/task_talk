@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDashboard } from '../context/DashboardContext';
+import { useDashboard } from '../../context/DashboardContext';
 import { DashboardCard } from './DashboardCard';
 
 export const CurrentDashboard = () => {
@@ -9,6 +9,7 @@ export const CurrentDashboard = () => {
   );
 
   return (
+    <div className='tailwind-scope'>
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-900">Connected Dashboards</h2>
       {connectedDashboards.length === 0 ? (
@@ -20,6 +21,7 @@ export const CurrentDashboard = () => {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 };
